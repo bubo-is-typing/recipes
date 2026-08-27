@@ -9,6 +9,8 @@ tags:
   - peanut-butter
   - oats
   - no-bake
+image: assets/images/peanut-butter-oat-cups.svg
+image_alt: Two rustic oat cups filled with banana slices and Greek yogurt, finished with peanut butter drizzle and scattered oats.
 ---
 
 # Peanut Butter Oat Cups

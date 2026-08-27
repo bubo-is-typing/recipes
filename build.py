@@ -22,6 +22,8 @@ class Recipe:
     source_url: str
     accessed: str
     tags: list[str]
+    image: str
+    image_alt: str
     body: str
 
     @property
@@ -62,7 +64,7 @@ def parse_recipe(path: Path) -> Recipe:
             else:
                 meta[key] = []
                 current_list = key
-    required = ("title", "source_creator", "source_url", "accessed", "tags")
+    required = ("title", "source_creator", "source_url", "accessed", "tags", "image", "image_alt")
     missing = [key for key in required if key not in meta]
     if missing:
         raise ValueError(f"{path.name}: missing frontmatter: {', '.join(missing)}")
@@ -73,6 +75,8 @@ def parse_recipe(path: Path) -> Recipe:
         source_url=str(meta["source_url"]),
         accessed=str(meta["accessed"]),
         tags=list(meta["tags"]),
+        image=str(meta["image"]),
+        image_alt=str(meta["image_alt"]),
         body=body.strip(),
     )
 
@@ -167,7 +171,10 @@ def card(recipe: Recipe, index: int) -> str:
     search = " ".join([recipe.title, recipe.creator, *recipe.tags]).lower()
     return f'''<article class="recipe-card tone-{index % 4}" data-search="{html.escape(search, quote=True)}" data-tags="{' '.join(html.escape(t, quote=True) for t in recipe.tags)}">
       <a class="card-link" href="{recipe.slug}.html" aria-label="Open {html.escape(recipe.title, quote=True)}">
-        <div class="card-art" aria-hidden="true"><span></span><i>0{index + 1}</i></div>
+        <div class="card-art">
+          <img src="{html.escape(recipe.image, quote=True)}" alt="{html.escape(recipe.image_alt, quote=True)}" width="1200" height="800" loading="lazy" decoding="async" sizes="(max-width: 720px) 100vw, (max-width: 1000px) 42vw, 21vw">
+          <i aria-hidden="true">0{index + 1}</i>
+        </div>
         <div class="card-copy">
           <p class="card-kicker">By {html.escape(recipe.creator)}</p>
           <h2>{html.escape(recipe.title)}</h2>
@@ -221,12 +228,15 @@ def build_recipe(recipe: Recipe) -> str:
             <p class="eyebrow">Recipe · By {html.escape(recipe.creator)}</p>
             <h1>{html.escape(recipe.title)}</h1>
             <div class="tag-row">{tags}</div>
+            <dl class="recipe-facts">
+              <div><dt>Ingredients</dt><dd>{recipe.ingredient_count}</dd></div>
+              <div><dt>Method</dt><dd>{recipe.step_count} steps</dd></div>
+              <div><dt>Collected</dt><dd>{html.escape(recipe.accessed)}</dd></div>
+            </dl>
           </div>
-          <dl class="recipe-facts">
-            <div><dt>Ingredients</dt><dd>{recipe.ingredient_count}</dd></div>
-            <div><dt>Method</dt><dd>{recipe.step_count} steps</dd></div>
-            <div><dt>Collected</dt><dd>{html.escape(recipe.accessed)}</dd></div>
-          </dl>
+          <figure class="recipe-hero-image">
+            <img src="{html.escape(recipe.image, quote=True)}" alt="{html.escape(recipe.image_alt, quote=True)}" width="1200" height="800" decoding="async" fetchpriority="high" sizes="(max-width: 720px) 100vw, 48vw">
+          </figure>
         </header>
         <div class="recipe-actions" aria-label="Recipe actions">
           <button type="button" class="action-button" id="cook-mode"><span aria-hidden="true">◐</span> Cooking mode</button>
@@ -254,15 +264,14 @@ def main() -> None:
     recipes.sort(key=lambda recipe: recipe.title)
     if OUT.exists():
         shutil.rmtree(OUT)
-    (OUT / "assets").mkdir(parents=True)
-    shutil.copy2(ASSETS / "style.css", OUT / "assets" / "style.css")
-    shutil.copy2(ASSETS / "site.js", OUT / "assets" / "site.js")
+    shutil.copytree(ASSETS, OUT / "assets")
     (OUT / "index.html").write_text(build_index(recipes), encoding="utf-8")
     for recipe in recipes:
         (OUT / f"{recipe.slug}.html").write_text(build_recipe(recipe), encoding="utf-8")
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
     print(f"Built {len(recipes)} recipes into {OUT}")
-    print(f"Generated {len(recipes) + 1} HTML pages and 2 assets")
+    asset_count = sum(1 for path in ASSETS.rglob("*") if path.is_file())
+    print(f"Generated {len(recipes) + 1} HTML pages and {asset_count} assets")
 
 
 if __name__ == "__main__":

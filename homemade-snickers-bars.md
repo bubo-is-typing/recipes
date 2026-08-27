@@ -8,6 +8,8 @@ tags:
   - dessert
   - chocolate
   - no-bake
+image: assets/images/homemade-snickers-bars.svg
+image_alt: Stacked homemade chocolate bars cut open to reveal a creamy cashew base, peanut caramel and roasted peanuts.
 ---
 
 # Homemade Snickers Bars
