@@ -20,7 +20,10 @@ class PagefindBuildTests(unittest.TestCase):
         page = build.build_index([self.recipe])
         self.assertIn('<link rel="stylesheet" href="pagefind/pagefind-component-ui.css">', page)
         self.assertIn('<script src="pagefind/pagefind-component-ui.js" type="module"></script>', page)
-        self.assertIn('<pagefind-config base-url="/recipes/"></pagefind-config>', page)
+        self.assertIn(
+            '<pagefind-config base-url="/recipes/" bundle-path="/recipes/pagefind/"></pagefind-config>',
+            page,
+        )
         self.assertIn(
             '<pagefind-searchbox placeholder="Search recipes and ingredients…" '
             'show-sub-results></pagefind-searchbox>',

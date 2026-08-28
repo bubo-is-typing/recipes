@@ -207,7 +207,7 @@ def build_index(recipes: list[Recipe]) -> str:
       <section class="catalogue" aria-labelledby="catalogue-title">
         <div class="catalogue-head">
           <div><p class="eyebrow">Browse the collection</p><h2 id="catalogue-title">The recipe box</h2></div>
-          <div class="search"><pagefind-config base-url="/recipes/"></pagefind-config><pagefind-searchbox placeholder="Search recipes and ingredients…" show-sub-results></pagefind-searchbox></div>
+          <div class="search"><pagefind-config base-url="/recipes/" bundle-path="/recipes/pagefind/"></pagefind-config><pagefind-searchbox placeholder="Search recipes and ingredients…" show-sub-results></pagefind-searchbox></div>
         </div>
         <div class="filters" role="group" aria-label="Filter recipes by tag">{''.join(filters)}</div>
         <p id="result-count" class="result-count" aria-live="polite">Showing all {len(recipes)} recipes</p>
