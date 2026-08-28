@@ -2,6 +2,11 @@
 
 Markdown recipes collected from videos and other sources.
 
+## Breakfast
+
+- [High-Protein Tiramisu Oats](high-protein-tiramisu-oats.md) — Fitness.Compani0n
+- [Date Caramel Blended Oats](date-caramel-blended-oats.md) — Liz Douglas
+
 ## Desserts
 
 - [Homemade Snickers Bars](homemade-snickers-bars.md) — KineleVital
