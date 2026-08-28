@@ -10,8 +10,8 @@ tags:
   - biscoff
   - high-protein
   - no-bake
-image: assets/images/chocolate-biscoff-protein-bowl.svg
-image_alt: A layered chocolate and Biscoff protein bowl topped with a dark chocolate shell, coconut, tahini and blueberries.
+image: assets/images/chocolate-biscoff-protein-bowl.png
+image_alt: A layered chocolate and cream protein dessert in a rectangular glass dish, topped with biscuits, blueberries and coconut.
 ---
 
 # Chocolate Biscoff Protein Bowl

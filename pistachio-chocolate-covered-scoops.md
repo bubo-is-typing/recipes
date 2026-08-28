@@ -10,8 +10,8 @@ tags:
   - chocolate
   - no-bake
   - vegan
-image: assets/images/pistachio-chocolate-scoops.svg
-image_alt: Whole and cut-open dark chocolate scoops showing a pale green pistachio-cashew centre, with chopped pistachios and sea salt.
+image: assets/images/pistachio-chocolate-covered-scoops.png
+image_alt: Dark chocolate pistachio scoops topped with chopped nuts and sea salt, including one cut open to reveal a pale-green centre.
 ---
 
 # Pistachio Chocolate-Covered Scoops

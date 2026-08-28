@@ -9,8 +9,8 @@ tags:
   - tomato
   - bread
   - quick
-image: assets/images/crispy-tomato-olive-oil-bread.svg
-image_alt: Toasted bread topped generously with grated tomato, red onion, parsley and golden pine nuts on a pale ceramic plate.
+image: assets/images/crispy-tomato-olive-oil-bread.png
+image_alt: A thick slice of toasted sourdough topped with tomato, finely diced red onion, parsley and pine nuts on a pale ceramic plate.
 ---
 
 # Crispy Tomato & Olive Oil Bread

@@ -9,8 +9,8 @@ tags:
   - chocolate
   - hazelnut
   - no-bake
-image: assets/images/ferrero-hazelnut-balls.svg
-image_alt: Whole and cut-open dark chocolate hazelnut balls showing golden nougat and a crunchy centre, with hazelnuts and chocolate shards.
+image: assets/images/homemade-ferrero-rocher-style-balls.png
+image_alt: Dark chocolate hazelnut balls with a chopped-nut coating, including one cut open to reveal golden nougat and a crunchy centre.
 ---
 
 # Homemade Ferrero Rocher–Style Balls
