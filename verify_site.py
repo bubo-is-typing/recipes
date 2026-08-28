@@ -32,6 +32,15 @@ html = sorted((root / "_site").glob("*.html"))
 assert len(html) == expected_recipes + 1, len(html)
 stale_svg = list((root / "_site" / "assets" / "images").glob("*.svg"))
 assert not stale_svg, stale_svg
+pagefind = root / "_site" / "pagefind"
+required_pagefind_assets = [
+    pagefind / "pagefind.js",
+    pagefind / "pagefind-component-ui.js",
+    pagefind / "pagefind-component-ui.css",
+]
+assert all(path.exists() for path in required_pagefind_assets), required_pagefind_assets
+pagefind_fragments = list((pagefind / "fragment").glob("*.pf_fragment"))
+assert len(pagefind_fragments) == expected_recipes, len(pagefind_fragments)
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *_args):
@@ -47,6 +56,8 @@ urls = (
     + [f"/{recipe.stem}.html" for recipe in recipes]
     + [f"/assets/images/{name}" for name, _ in images]
     + ["/assets/style.css", "/assets/site.js"]
+    + [f"/pagefind/{path.name}" for path in required_pagefind_assets]
+    + [f"/pagefind/fragment/{path.name}" for path in pagefind_fragments]
 )
 for url in urls:
     with urllib.request.urlopen(base + url, timeout=10) as response:
@@ -56,7 +67,8 @@ server.shutdown()
 server.server_close()
 print(
     f"recipes={expected_recipes} html_pages={len(html)} "
-    f"png_images={len(images)} http_200_checks={len(urls)}"
+    f"png_images={len(images)} pagefind_pages={len(pagefind_fragments)} "
+    f"http_200_checks={len(urls)}"
 )
 print("images=" + json.dumps(images))
 print("verification=PASS")
