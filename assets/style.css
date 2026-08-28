@@ -46,10 +46,28 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .catalogue { max-width: 1500px; margin: auto; padding: clamp(70px, 9vw, 130px) clamp(20px, 5vw, 72px); }
 .catalogue-head { display: grid; grid-template-columns: 1fr minmax(280px, 430px); align-items: end; gap: 40px; }
 .catalogue-head h2 { margin: 0; font: 600 clamp(2.5rem, 5vw, 4.6rem)/1 var(--serif); letter-spacing: -.04em; }
-.search { min-height: 50px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-bottom: 1px solid var(--ink); }
-.search svg { width: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
-.search input { width: 100%; min-height: 48px; border: 0; outline: 0; background: transparent; color: var(--ink); }
-.search input::placeholder { color: var(--muted); opacity: 1; }
+.search { min-height: 52px; position: relative; z-index: 10; }
+.search pagefind-searchbox {
+  display: block;
+  width: 100%;
+  --pf-text: var(--ink);
+  --pf-text-secondary: var(--muted);
+  --pf-text-muted: var(--muted);
+  --pf-background: var(--paper);
+  --pf-border: var(--line);
+  --pf-border-focus: var(--ink);
+  --pf-hover: var(--paper-deep);
+  --pf-mark: var(--terracotta-dark);
+  --pf-outline-focus: var(--terracotta);
+  --pf-font: var(--sans);
+  --pf-input-height: 52px;
+  --pf-input-font-size: 16px;
+  --pf-border-radius: 2px;
+  --pf-searchbox-max-width: 100%;
+  --pf-searchbox-dropdown-max-height: 420px;
+  --pf-shadow-md: var(--shadow);
+}
+.search pagefind-searchbox:not(:defined) { min-height: 52px; border-bottom: 1px solid var(--ink); }
 .filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 38px 0 12px; }
 .filter, .action-button { min-height: 42px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); padding: 8px 15px; cursor: pointer; transition: .2s ease; }
 .filter:hover, .filter.is-active, .action-button:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }

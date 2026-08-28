@@ -1,0 +1,12 @@
+{
+  "name": "recipe-index",
+  "private": true,
+  "scripts": {
+    "build": "python3 build.py && pagefind --site _site",
+    "test": "python3 -m unittest discover -s tests -v",
+    "verify": "python3 verify_site.py"
+  },
+  "devDependencies": {
+    "pagefind": "1.5.2"
+  }
+}

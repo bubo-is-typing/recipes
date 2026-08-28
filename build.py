@@ -137,6 +137,11 @@ def markdown_blocks(markdown: str, section_class: str = "") -> str:
 
 
 def shell(title: str, description: str, content: str, *, page_class: str = "") -> str:
+    pagefind_assets = ""
+    if page_class == "home-page":
+        pagefind_assets = '''
+  <link rel="stylesheet" href="pagefind/pagefind-component-ui.css">
+  <script src="pagefind/pagefind-component-ui.js" type="module"></script>'''
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -145,7 +150,7 @@ def shell(title: str, description: str, content: str, *, page_class: str = "") -
   <meta name="description" content="{html.escape(description, quote=True)}">
   <meta name="theme-color" content="#f5eee2">
   <title>{html.escape(title)} · The Recipe Index</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css">{pagefind_assets}
   <script src="assets/site.js" defer></script>
 </head>
 <body class="{page_class}">
@@ -168,8 +173,7 @@ def shell(title: str, description: str, content: str, *, page_class: str = "") -
 
 def card(recipe: Recipe, index: int) -> str:
     tags = "".join(f'<span class="tag">{html.escape(tag.replace("-", " "))}</span>' for tag in recipe.display_tags)
-    search = " ".join([recipe.title, recipe.creator, *recipe.tags]).lower()
-    return f'''<article class="recipe-card tone-{index % 4}" data-search="{html.escape(search, quote=True)}" data-tags="{' '.join(html.escape(t, quote=True) for t in recipe.tags)}">
+    return f'''<article class="recipe-card tone-{index % 4}" data-tags="{' '.join(html.escape(t, quote=True) for t in recipe.tags)}">
       <a class="card-link" href="{recipe.slug}.html" aria-label="Open {html.escape(recipe.title, quote=True)}">
         <div class="card-art">
           <img src="{html.escape(recipe.image, quote=True)}" alt="{html.escape(recipe.image_alt, quote=True)}" width="1200" height="800" loading="lazy" decoding="async" sizes="(max-width: 720px) 100vw, (max-width: 1000px) 42vw, 21vw">
@@ -203,9 +207,9 @@ def build_index(recipes: list[Recipe]) -> str:
       <section class="catalogue" aria-labelledby="catalogue-title">
         <div class="catalogue-head">
           <div><p class="eyebrow">Browse the collection</p><h2 id="catalogue-title">The recipe box</h2></div>
-          <label class="search"><span class="sr-only">Search recipes</span><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg><input id="recipe-search" type="search" placeholder="Search by recipe, creator or ingredient…" autocomplete="off"></label>
+          <div class="search"><pagefind-config base-url="/recipes/"></pagefind-config><pagefind-searchbox placeholder="Search recipes and ingredients…" show-sub-results></pagefind-searchbox></div>
         </div>
-        <div class="filters" aria-label="Filter recipes by tag">{''.join(filters)}</div>
+        <div class="filters" role="group" aria-label="Filter recipes by tag">{''.join(filters)}</div>
         <p id="result-count" class="result-count" aria-live="polite">Showing all {len(recipes)} recipes</p>
         <div class="recipe-grid" id="recipe-grid">{cards}</div>
         <div class="empty-state" id="empty-state" hidden><span aria-hidden="true">◇</span><h3>No recipes found</h3><p>Try another word or clear the selected filter.</p></div>
@@ -220,9 +224,9 @@ def build_recipe(recipe: Recipe) -> str:
     notes = markdown_blocks(extract_section(recipe.body, "Notes"), "notes-list")
     sources = markdown_blocks(extract_section(recipe.body, "Sources"), "sources-list")
     tags = "".join(f'<span class="tag">{html.escape(tag.replace("-", " "))}</span>' for tag in recipe.display_tags)
-    content = f'''<main id="main" class="recipe-main">
+    content = f'''<main class="recipe-main" id="main">
       <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">All recipes</a><span aria-hidden="true">/</span><span>{html.escape(recipe.title)}</span></nav>
-      <article class="recipe">
+      <article class="recipe" data-pagefind-body>
         <header class="recipe-hero">
           <div class="recipe-hero-copy">
             <p class="eyebrow">Recipe · By {html.escape(recipe.creator)}</p>

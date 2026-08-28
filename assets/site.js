@@ -1,5 +1,4 @@
 (() => {
-  const search = document.querySelector('#recipe-search');
   const cards = [...document.querySelectorAll('.recipe-card')];
   const filters = [...document.querySelectorAll('.filter')];
   const count = document.querySelector('#result-count');
@@ -7,22 +6,18 @@
   let activeTag = 'all';
 
   const applyFilters = () => {
-    const query = (search?.value || '').trim().toLowerCase();
     let visible = 0;
     cards.forEach((card) => {
-      const matchesSearch = card.dataset.search.includes(query);
-      const matchesTag = activeTag === 'all' || card.dataset.tags.split(' ').includes(activeTag);
-      const show = matchesSearch && matchesTag;
+      const show = activeTag === 'all' || card.dataset.tags.split(' ').includes(activeTag);
       card.hidden = !show;
       if (show) visible += 1;
     });
-    if (count) count.textContent = visible === cards.length && !query && activeTag === 'all'
+    if (count) count.textContent = activeTag === 'all'
       ? `Showing all ${visible} recipes`
       : `${visible} recipe${visible === 1 ? '' : 's'} found`;
     if (empty) empty.hidden = visible !== 0;
   };
 
-  search?.addEventListener('input', applyFilters);
   filters.forEach((filter) => filter.addEventListener('click', () => {
     activeTag = filter.dataset.tag;
     filters.forEach((item) => {
