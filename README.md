@@ -9,4 +9,8 @@ Markdown recipes collected from videos and other sources.
 - [Peanut Butter Oat Cups](peanut-butter-oat-cups.md) — Dessert Loop
 - [Pistachio Chocolate-Covered Scoops](pistachio-chocolate-covered-scoops.md) — KineleVital
 
+## Savoury
+
+- [Crispy Tomato & Olive Oil Bread](crispy-tomato-olive-oil-bread.md) — Pascha TV
+
 Each recipe keeps its original source link, creator attribution, access date, and notes about details the source did not specify.

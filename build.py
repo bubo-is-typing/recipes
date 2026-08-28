@@ -144,16 +144,16 @@ def shell(title: str, description: str, content: str, *, page_class: str = "") -
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{html.escape(description, quote=True)}">
   <meta name="theme-color" content="#f5eee2">
-  <title>{html.escape(title)} · The Sweet Index</title>
+  <title>{html.escape(title)} · The Recipe Index</title>
   <link rel="stylesheet" href="assets/style.css">
   <script src="assets/site.js" defer></script>
 </head>
 <body class="{page_class}">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <a class="wordmark" href="index.html" aria-label="The Sweet Index, home">
+    <a class="wordmark" href="index.html" aria-label="The Recipe Index, home">
       <span class="wordmark-mark" aria-hidden="true">✦</span>
-      <span>The Sweet Index</span>
+      <span>The Recipe Index</span>
     </a>
     <span class="edition">A small-batch recipe journal</span>
   </header>
@@ -194,9 +194,9 @@ def build_index(recipes: list[Recipe]) -> str:
     content = f'''<main id="main">
       <section class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">Volume 01 · Something sweet</p>
+          <p class="eyebrow">Volume 01 · Something good</p>
           <h1>Recipes worth<br><em>making again.</em></h1>
-          <p class="hero-intro">A considered collection of chocolate-dipped, nutty, no-bake treats—kept simple, sourced carefully, and ready for the kitchen.</p>
+          <p class="hero-intro">A considered collection of recipes worth keeping—sourced carefully and ready for the kitchen.</p>
         </div>
         <div class="hero-stamp" aria-hidden="true"><span>{len(recipes)}</span> recipes<br>inside</div>
       </section>
@@ -211,7 +211,7 @@ def build_index(recipes: list[Recipe]) -> str:
         <div class="empty-state" id="empty-state" hidden><span aria-hidden="true">◇</span><h3>No recipes found</h3><p>Try another word or clear the selected filter.</p></div>
       </section>
     </main>'''
-    return shell("Recipes", "A small collection of carefully sourced dessert recipes.", content, page_class="home-page")
+    return shell("Recipes", "A small collection of carefully sourced recipes.", content, page_class="home-page")
 
 
 def build_recipe(recipe: Recipe) -> str:
