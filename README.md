@@ -8,6 +8,7 @@ Markdown recipes collected from videos and other sources.
 - [Homemade Ferrero Rocher–Style Balls](homemade-ferrero-rocher-style-balls.md) — KineleVital
 - [Peanut Butter Oat Cups](peanut-butter-oat-cups.md) — Dessert Loop
 - [Pistachio Chocolate-Covered Scoops](pistachio-chocolate-covered-scoops.md) — KineleVital
+- [Chocolate Biscoff Protein Bowl](chocolate-biscoff-protein-bowl.md) — Barham Barzinjy
 
 ## Savoury
 
