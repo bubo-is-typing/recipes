@@ -17,6 +17,7 @@ Markdown recipes collected from videos and other sources.
 - [Frozen Peanut Butter Yogurt Bites](frozen-peanut-butter-yogurt-bites.md) — KineleVital
 - [Fudge Brownie Cheesecake Bars](fudge-brownie-cheesecake-bars.md) — Stefan Bodegrajac
 - [Whole-Lime Loaf Cake](whole-lime-loaf-cake.md) — Jose.elcook
+- [High-Protein Frozen Yogurt Bars](high-protein-frozen-yogurt-bars.md) — Adam Wolfe
 
 ## Savoury
 
