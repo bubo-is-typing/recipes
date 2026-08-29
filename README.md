@@ -14,6 +14,7 @@ Markdown recipes collected from videos and other sources.
 - [Peanut Butter Oat Cups](peanut-butter-oat-cups.md) — Dessert Loop
 - [Pistachio Chocolate-Covered Scoops](pistachio-chocolate-covered-scoops.md) — KineleVital
 - [Chocolate Biscoff Protein Bowl](chocolate-biscoff-protein-bowl.md) — Barham Barzinjy
+- [Frozen Peanut Butter Yogurt Bites](frozen-peanut-butter-yogurt-bites.md) — KineleVital
 
 ## Savoury
 
