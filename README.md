@@ -22,6 +22,11 @@ Markdown recipes collected from videos and other sources.
 ## Savoury
 
 - [Crispy Tomato & Olive Oil Bread](crispy-tomato-olive-oil-bread.md) — Pascha TV
+- [Crispy Pan-Fried Onigirazu](crispy-pan-fried-onigirazu.md) — Wild Planet Foods
+
+## Drinks
+
+- [Sprite Black Tea with Lemon](sprite-black-tea-with-lemon.md) — Sarah Betts
 
 Each recipe keeps its original source link, creator attribution, access date, and notes about details the source did not specify.
 
