@@ -18,6 +18,7 @@ Markdown recipes collected from videos and other sources.
 - [Fudge Brownie Cheesecake Bars](fudge-brownie-cheesecake-bars.md) — Stefan Bodegrajac
 - [Whole-Lime Loaf Cake](whole-lime-loaf-cake.md) — Jose.elcook
 - [High-Protein Frozen Yogurt Bars](high-protein-frozen-yogurt-bars.md) — Adam Wolfe
+- [Apple Waffles with Cinnamon Sugar](apple-waffles-with-cinnamon-sugar.md) — Foodwerk
 
 ## Savoury
 
