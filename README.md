@@ -22,6 +22,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Savoury
 
+- [Cotton-Soft Kiflice (Balkan Crescent Rolls)](soft-kiflice-balkan-crescent-rolls.md) — Kuhinja Sabi
 - [Crispy Tomato & Olive Oil Bread](crispy-tomato-olive-oil-bread.md) — Pascha TV
 - [Crispy Pan-Fried Onigirazu](crispy-pan-fried-onigirazu.md) — Wild Planet Foods
 
