@@ -11,7 +11,7 @@ tags:
   - freezer-friendly
   - sesame
 image: assets/images/soft-kiflice-balkan-crescent-rolls.png
-image_alt: Two trays of glossy, golden homemade kiflice, one plain and one topped with black and white sesame seeds.
+image_alt: A tray of glossy, golden homemade kiflice topped with black and white sesame seeds.
 ---
 
 # Cotton-Soft Kiflice (Balkan Crescent Rolls)
@@ -61,7 +61,7 @@ image_alt: Two trays of glossy, golden homemade kiflice, one plain and one toppe
 - Eight dough balls cut into eight wedges each give approximately 64 rolls. The exact yield is inferred from the shaping shown in the video.
 - The source specifies two packets of dry yeast but does not give the weight of each packet.
 - The source gives a level-looking tablespoon of salt but does not explicitly say whether the spoon measurements are level or heaped.
-- The accompanying finished-roll photographs were supplied by Pesche. One batch appears plain or filled, while the other is topped with black and white sesame; the source itself does not specify a filling.
+- The finished-roll photographs were supplied by Pesche; the seeded batch is used as the recipe image. The other batch appears plain or filled, although the source itself does not specify a filling.
 
 ## Sources
 
