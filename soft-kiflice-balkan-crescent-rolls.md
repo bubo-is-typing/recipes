@@ -48,20 +48,15 @@ image_alt: Two trays of glossy, golden homemade kiflice, one plain and one toppe
 8. Arrange the rolls on a parchment-lined baking tray. Mix the extra egg yolk with a little oil and brush it over the rolls. Sprinkle with seeds or coarse salt, if using.
 9. Bake for 10 minutes at 150°C. Increase the oven temperature to 180°C and bake for another 10–15 minutes, until glossy and golden brown.
 
-## Freezing
-
-### Unbaked
+### To freeze unbaked
 
 1. Arrange the shaped, unglazed rolls on a tray and freeze for about 15 minutes, just until firm.
 2. Transfer them to freezer bags or a freezer-safe container and freeze for up to 1 month.
 3. When ready to bake, take out the required number and leave them at room temperature only while the oven heats, about 5 minutes. Brush, top and bake using the temperatures and times above.
 
-### Baked
-
-- Let the baked rolls cool completely before freezing. Reheat them briefly in the microwave or oven after thawing.
-
 ## Notes
 
+- To freeze the rolls after baking, let them cool completely first. Reheat after thawing, briefly in the microwave or oven.
 - “Pamuk kiflice” means “cotton-soft little crescent rolls”; the creator presents them as savoury rolls.
 - Eight dough balls cut into eight wedges each give approximately 64 rolls. The exact yield is inferred from the shaping shown in the video.
 - The source specifies two packets of dry yeast but does not give the weight of each packet.
