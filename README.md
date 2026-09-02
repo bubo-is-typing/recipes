@@ -9,6 +9,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Desserts
 
+- [Homemade Oreos](homemade-oreos.md) — KineleVital
 - [Homemade Snickers Bars](homemade-snickers-bars.md) — KineleVital
 - [Homemade Ferrero Rocher–Style Balls](homemade-ferrero-rocher-style-balls.md) — KineleVital
 - [Peanut Butter Oat Cups](peanut-butter-oat-cups.md) — Dessert Loop
