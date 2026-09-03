@@ -48,7 +48,9 @@ npx pagefind --site _site --serve
 
 ## Deployment
 
-The production site is https://recipes.bubo.page/ on Cloudflare Pages. Build and verify it at the domain root before deploying:
+The production site is https://recipes.bubo.page/ on Cloudflare Pages. Every push to `main` runs the test suite, builds and verifies both hosting variants, then deploys Cloudflare Pages and the GitHub Pages fallback through `.github/workflows/pages.yml`.
+
+For a manual Cloudflare deployment, build and verify at the domain root before uploading:
 
 ```bash
 rm -rf _site
