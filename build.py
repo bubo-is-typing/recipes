@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import html
+import os
 import re
 import shutil
 from dataclasses import dataclass
@@ -12,6 +13,21 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "_site"
 ASSETS = ROOT / "assets"
+DEFAULT_SITE_BASE_URL = "/recipes/"
+SECURITY_HEADERS = """/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+"""
+
+
+def normalize_site_base_url(value: str | None = None) -> str:
+    """Return an absolute base path with exactly one leading/trailing slash."""
+    raw_value = os.environ.get("SITE_BASE_URL", DEFAULT_SITE_BASE_URL) if value is None else value
+    path = raw_value.strip().strip("/")
+    return f"/{path}/" if path else "/"
 
 
 @dataclass
@@ -193,6 +209,8 @@ def card(recipe: Recipe, index: int) -> str:
 
 
 def build_index(recipes: list[Recipe]) -> str:
+    site_base_url = normalize_site_base_url()
+    pagefind_bundle_path = f"{site_base_url}pagefind/"
     all_tags = sorted({tag for recipe in recipes for tag in recipe.display_tags})
     filters = ['<button class="filter is-active" type="button" data-tag="all" aria-pressed="true">All recipes</button>']
     filters += [f'<button class="filter" type="button" data-tag="{html.escape(tag, quote=True)}" aria-pressed="false">{html.escape(tag.replace("-", " "))}</button>' for tag in all_tags]
@@ -209,7 +227,7 @@ def build_index(recipes: list[Recipe]) -> str:
       <section class="catalogue" aria-labelledby="catalogue-title">
         <div class="catalogue-head">
           <div><p class="eyebrow">Browse the collection</p><h2 id="catalogue-title">The recipe box</h2></div>
-          <div class="search"><pagefind-config base-url="/recipes/" bundle-path="/recipes/pagefind/"></pagefind-config><pagefind-searchbox placeholder="Search recipes and ingredients…" show-sub-results></pagefind-searchbox></div>
+          <div class="search"><pagefind-config base-url="{site_base_url}" bundle-path="{pagefind_bundle_path}"></pagefind-config><pagefind-searchbox placeholder="Search recipes and ingredients…" show-sub-results></pagefind-searchbox></div>
         </div>
         <div class="filters" role="group" aria-label="Filter recipes by tag">{''.join(filters)}</div>
         <p id="result-count" class="result-count" aria-live="polite">Showing all {len(recipes)} recipes</p>
@@ -289,6 +307,7 @@ def main() -> None:
         (OUT / f"{recipe.slug}.html").write_text(build_recipe(recipe), encoding="utf-8")
     (OUT / "404.html").write_text(build_not_found(), encoding="utf-8")
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
+    (OUT / "_headers").write_text(SECURITY_HEADERS, encoding="utf-8")
     print(f"Built {len(recipes)} recipes into {OUT}")
     asset_count = sum(1 for path in ASSETS.rglob("*") if path.is_file())
     print(f"Generated {len(recipes) + 2} HTML pages and {asset_count} assets")

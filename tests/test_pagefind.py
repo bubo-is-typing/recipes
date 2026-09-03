@@ -1,6 +1,8 @@
 import json
+import os
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import build
 
@@ -16,8 +18,9 @@ class PagefindBuildTests(unittest.TestCase):
         self.assertIn('<article class="recipe" data-pagefind-body>', page)
         self.assertNotIn('<main class="recipe-main" id="main" data-pagefind-body>', page)
 
-    def test_index_uses_accessible_pagefind_searchbox(self):
-        page = build.build_index([self.recipe])
+    def test_index_uses_accessible_pagefind_searchbox_with_default_base_url(self):
+        with patch.dict(os.environ, {}, clear=True):
+            page = build.build_index([self.recipe])
         self.assertIn('<link rel="stylesheet" href="pagefind/pagefind-component-ui.css">', page)
         self.assertIn('<script src="pagefind/pagefind-component-ui.js" type="module"></script>', page)
         self.assertIn(
@@ -31,6 +34,35 @@ class PagefindBuildTests(unittest.TestCase):
         )
         self.assertNotIn('max-results=', page)
         self.assertNotIn('id="recipe-search"', page)
+
+    def test_index_uses_root_pagefind_paths_for_cloudflare_pages(self):
+        with patch.dict(os.environ, {"SITE_BASE_URL": "/"}, clear=True):
+            page = build.build_index([self.recipe])
+        self.assertIn(
+            '<pagefind-config base-url="/" bundle-path="/pagefind/"></pagefind-config>',
+            page,
+        )
+
+    def test_site_base_url_normalizes_leading_and_trailing_slashes(self):
+        for value in ("recipes", "/recipes", "recipes/", "///recipes///"):
+            with self.subTest(value=value):
+                self.assertEqual(build.normalize_site_base_url(value), "/recipes/")
+        for value in ("", "/", "///"):
+            with self.subTest(value=value):
+                self.assertEqual(build.normalize_site_base_url(value), "/")
+
+    def test_cloudflare_headers_cover_all_paths(self):
+        self.assertEqual(
+            build.SECURITY_HEADERS,
+            """/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+""",
+        )
+        self.assertNotIn("Content-Security-Policy", build.SECURITY_HEADERS)
 
     def test_all_generated_pages_block_search_engine_indexing(self):
         directives = (

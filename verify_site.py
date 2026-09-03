@@ -41,6 +41,25 @@ required_pagefind_assets = [
 assert all(path.exists() for path in required_pagefind_assets), required_pagefind_assets
 pagefind_fragments = list((pagefind / "fragment").glob("*.pf_fragment"))
 assert len(pagefind_fragments) == expected_recipes, len(pagefind_fragments)
+site_base_url = os.environ.get("SITE_BASE_URL", "/recipes/").strip().strip("/")
+site_base_url = f"/{site_base_url}/" if site_base_url else "/"
+pagefind_bundle_path = f"{site_base_url}pagefind/"
+index = (root / "_site" / "index.html").read_text(encoding="utf-8")
+expected_pagefind_config = (
+    f'<pagefind-config base-url="{site_base_url}" '
+    f'bundle-path="{pagefind_bundle_path}"></pagefind-config>'
+)
+assert expected_pagefind_config in index, expected_pagefind_config
+headers = (root / "_site" / "_headers").read_text(encoding="utf-8")
+expected_headers = """/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+"""
+assert headers == expected_headers, headers
+assert "Content-Security-Policy" not in headers
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *_args):
@@ -59,16 +78,18 @@ urls = (
     + [f"/pagefind/{path.name}" for path in required_pagefind_assets]
     + [f"/pagefind/fragment/{path.name}" for path in pagefind_fragments]
 )
-for url in urls:
-    with urllib.request.urlopen(base + url, timeout=10) as response:
-        assert response.status == 200, (url, response.status)
-        response.read()
-server.shutdown()
-server.server_close()
+try:
+    for url in urls:
+        with urllib.request.urlopen(base + url, timeout=10) as response:
+            assert response.status == 200, (url, response.status)
+            response.read()
+finally:
+    server.shutdown()
+    server.server_close()
 print(
     f"recipes={expected_recipes} html_pages={len(html)} "
     f"png_images={len(images)} pagefind_pages={len(pagefind_fragments)} "
-    f"http_200_checks={len(urls)}"
+    f"http_200_checks={len(urls)} headers=PASS base_url={site_base_url}"
 )
 print("images=" + json.dumps(images))
 print("verification=PASS")
