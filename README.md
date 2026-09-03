@@ -45,3 +45,16 @@ npx pagefind --site _site --serve
 ```
 
 `npm run build` generates the static site and a fully client-side Pagefind index in `_site/`. Search requires serving `_site/` over HTTP rather than opening `index.html` directly.
+
+## Deployment
+
+The production site is https://recipes.bubo.page/ on Cloudflare Pages. Build and verify it at the domain root before deploying:
+
+```bash
+rm -rf _site
+SITE_BASE_URL=/ npm run build
+SITE_BASE_URL=/ npm run verify
+npx wrangler pages deploy _site --project-name recipes --branch main
+```
+
+The default build base remains `/recipes/` so the existing GitHub Pages deployment continues to work as a migration fallback.
