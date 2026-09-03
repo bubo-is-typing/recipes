@@ -148,6 +148,8 @@ def shell(title: str, description: str, content: str, *, page_class: str = "") -
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{html.escape(description, quote=True)}">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <meta name="theme-color" content="#f5eee2">
   <title>{html.escape(title)} · The Recipe Index</title>
   <link rel="stylesheet" href="assets/style.css">{pagefind_assets}

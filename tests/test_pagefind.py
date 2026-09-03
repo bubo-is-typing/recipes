@@ -32,6 +32,15 @@ class PagefindBuildTests(unittest.TestCase):
         self.assertNotIn('max-results=', page)
         self.assertNotIn('id="recipe-search"', page)
 
+    def test_all_generated_pages_block_search_engine_indexing(self):
+        directives = (
+            '<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">',
+            '<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">',
+        )
+        for page in (build.build_index([self.recipe]), build.build_recipe(self.recipe)):
+            for directive in directives:
+                self.assertIn(directive, page)
+
     def test_package_build_runs_pagefind_after_static_generation(self):
         package_path = Path(__file__).parents[1] / "package.json"
         package = json.loads(package_path.read_text())
