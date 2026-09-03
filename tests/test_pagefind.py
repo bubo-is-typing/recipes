@@ -41,6 +41,17 @@ class PagefindBuildTests(unittest.TestCase):
             for directive in directives:
                 self.assertIn(directive, page)
 
+    def test_custom_not_found_page_blocks_search_engine_indexing(self):
+        page = build.build_not_found()
+        self.assertIn(
+            '<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">',
+            page,
+        )
+        self.assertIn(
+            '<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">',
+            page,
+        )
+
     def test_package_build_runs_pagefind_after_static_generation(self):
         package_path = Path(__file__).parents[1] / "package.json"
         package = json.loads(package_path.read_text())

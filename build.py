@@ -261,6 +261,19 @@ def build_recipe(recipe: Recipe) -> str:
     return shell(recipe.title, f"{recipe.title}, a recipe by {recipe.creator}.", content, page_class="recipe-page")
 
 
+def build_not_found() -> str:
+    content = '''<main id="main">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">404 · Not found</p>
+          <h1>This page is<br><em>off the menu.</em></h1>
+          <p class="hero-intro"><a href="/recipes/">Return to the recipe index</a>.</p>
+        </div>
+      </section>
+    </main>'''
+    return shell("Page not found", "The requested recipe page was not found.", content)
+
+
 def main() -> None:
     recipe_paths = sorted(ROOT.glob("*.md"))
     recipe_paths = [path for path in recipe_paths if path.name != "README.md"]
@@ -274,10 +287,11 @@ def main() -> None:
     (OUT / "index.html").write_text(build_index(recipes), encoding="utf-8")
     for recipe in recipes:
         (OUT / f"{recipe.slug}.html").write_text(build_recipe(recipe), encoding="utf-8")
+    (OUT / "404.html").write_text(build_not_found(), encoding="utf-8")
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
     print(f"Built {len(recipes)} recipes into {OUT}")
     asset_count = sum(1 for path in ASSETS.rglob("*") if path.is_file())
-    print(f"Generated {len(recipes) + 1} HTML pages and {asset_count} assets")
+    print(f"Generated {len(recipes) + 2} HTML pages and {asset_count} assets")
 
 
 if __name__ == "__main__":

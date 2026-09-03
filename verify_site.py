@@ -29,7 +29,7 @@ for recipe in recipes:
     images.append((image.name, image.stat().st_size))
 
 html = sorted((root / "_site").glob("*.html"))
-assert len(html) == expected_recipes + 1, len(html)
+assert len(html) == expected_recipes + 2, len(html)
 stale_svg = list((root / "_site" / "assets" / "images").glob("*.svg"))
 assert not stale_svg, stale_svg
 pagefind = root / "_site" / "pagefind"
