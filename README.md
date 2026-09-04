@@ -16,9 +16,11 @@ Markdown recipes collected from videos and other sources.
 - [Pistachio Chocolate-Covered Scoops](pistachio-chocolate-covered-scoops.md) — KineleVital
 - [Chocolate Biscoff Protein Bowl](chocolate-biscoff-protein-bowl.md) — Barham Barzinjy
 - [Frozen Peanut Butter Yogurt Bites](frozen-peanut-butter-yogurt-bites.md) — KineleVital
+- [Homemade Cookie Dough Ice Cream Bars](homemade-cookie-dough-ice-cream-bars.md) — KineleVital
 - [Fudge Brownie Cheesecake Bars](fudge-brownie-cheesecake-bars.md) — Stefan Bodegrajac
 - [Whole-Lime Loaf Cake](whole-lime-loaf-cake.md) — Jose.elcook
 - [High-Protein Frozen Yogurt Bars](high-protein-frozen-yogurt-bars.md) — Adam Wolfe
+- [High-Protein Blueberry Lemon Cheesecake](high-protein-blueberry-lemon-cheesecake.md) — We Are Recipes
 - [Apple Waffles with Cinnamon Sugar](apple-waffles-with-cinnamon-sugar.md) — Foodwerk
 
 ## Savoury
