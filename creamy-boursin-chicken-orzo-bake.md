@@ -12,7 +12,7 @@ tags:
   - tomatoes
   - courgette
   - pasta-bake
-image: assets/images/creamy-boursin-chicken-orzo-bake.png
+image: assets/images/creamy-boursin-chicken-orzo-bake-v2.png
 image_alt: A creamy chicken and orzo bake with halved cherry tomatoes, green courgette chunks, grated cheese and basil in a pale ceramic dish.
 ---
 
