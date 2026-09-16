@@ -23,6 +23,7 @@ Markdown recipes collected from videos and other sources.
 - [High-Protein Blueberry Lemon Cheesecake](high-protein-blueberry-lemon-cheesecake.md) — We Are Recipes
 - [Apple Waffles with Cinnamon Sugar](apple-waffles-with-cinnamon-sugar.md) — Foodwerk
 - [High-Protein Chocolate Crispy Cakes](high-protein-chocolate-crispy-cakes.md) — Maria Lucey
+- [Greek Yogurt Brownie Batter](greek-yogurt-brownie-batter.md) — Juliana Ksander
 
 ## Savoury
 
