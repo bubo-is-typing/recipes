@@ -27,6 +27,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Savoury
 
+- [Creamy Boursin Chicken Orzo Bake](creamy-boursin-chicken-orzo-bake.md) — Unknown creator (user-provided screenshot)
 - [Cotton-Soft Kiflice (Balkan Crescent Rolls)](soft-kiflice-balkan-crescent-rolls.md) — Kuhinja Sabi
 - [Upside-Down Tomato Tart with Burrata](upside-down-tomato-tart-with-burrata.md) — Bruno Pecorino
 - [Crispy Tomato & Olive Oil Bread](crispy-tomato-olive-oil-bread.md) — Pascha TV
