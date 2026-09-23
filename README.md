@@ -27,6 +27,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Savoury
 
+- [High-Protein Rice-Paper Chicken Nuggets](high-protein-rice-paper-chicken-nuggets.md) — MAX (@maxxpane; original video credited to @panaceapalm)
 - [Creamy Boursin Chicken Orzo Bake](creamy-boursin-chicken-orzo-bake.md) — Unknown creator (user-provided screenshot)
 - [Cotton-Soft Kiflice (Balkan Crescent Rolls)](soft-kiflice-balkan-crescent-rolls.md) — Kuhinja Sabi
 - [Upside-Down Tomato Tart with Burrata](upside-down-tomato-tart-with-burrata.md) — Bruno Pecorino
