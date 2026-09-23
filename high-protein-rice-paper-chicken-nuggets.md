@@ -10,8 +10,8 @@ tags:
   - rice-paper
   - nuggets
   - air-fryer
-image: assets/images/high-protein-rice-paper-chicken-nuggets.png
-image_alt: Illustrated recipe card of five golden rice-paper-wrapped chicken bites on a plate with red dipping sauce; illustration, not a photo of the finished dish.
+image: assets/images/high-protein-rice-paper-chicken-nuggets-v2.png
+image_alt: Golden wrapped chicken bites piled on a cream-coloured ceramic plate, with two cut pieces showing pale cooked meat and a small dish of orange-red dipping sauce.
 ---
 
 # High-Protein Rice-Paper Chicken Nuggets
@@ -49,6 +49,7 @@ image_alt: Illustrated recipe card of five golden rice-paper-wrapped chicken bit
 - MAX recommends rice paper for spring rolls with **rice flour listed first**, rather than a tapioca-starch-first summer-roll wrapper, for a crisper result. Check the wrapper packet's ingredient list.
 - The source does not specify a yield. The 12-minute cooking time is the creator's stated setting; check that the chicken filling is fully cooked before serving, especially if your nugget size or air fryer differs.
 - MAX credits the original video to @panaceapalm. This entry follows MAX's demonstrated adaptation and retains that credit.
+- The hero is a locally generated food photograph approved as an approximation; it is not a photograph of the source video's finished nuggets. See the linked video for their actual appearance.
 
 ## Sources
 
