@@ -103,12 +103,24 @@ def extract_section(markdown: str, name: str) -> str:
 
 
 def inline(text: str) -> str:
-    escaped = html.escape(text, quote=False)
-    pattern = re.compile(r"\[([^\]]+)\]\((https?://[^)]+)\)")
-    return pattern.sub(
-        lambda m: f'<a href="{html.escape(m.group(2), quote=True)}" rel="noopener noreferrer">{m.group(1)}</a>',
-        escaped,
-    )
+    links = re.compile(r"\[([^\]]+)\]\((https?://[^)]+)\)")
+
+    def render_text(value: str) -> str:
+        escaped = html.escape(value, quote=False)
+        escaped = re.sub(r"\*\*(?=\S)(.+?)(?<=\S)\*\*", r"<strong>\1</strong>", escaped)
+        return re.sub(r"(?<!\*)\*(?=\S)(.+?)(?<=\S)\*(?!\*)", r"<em>\1</em>", escaped)
+
+    parts: list[str] = []
+    offset = 0
+    for match in links.finditer(text):
+        parts.append(render_text(text[offset:match.start()]))
+        parts.append(
+            f'<a href="{html.escape(match.group(2), quote=True)}" rel="noopener noreferrer">'
+            f'{render_text(match.group(1))}</a>'
+        )
+        offset = match.end()
+    parts.append(render_text(text[offset:]))
+    return "".join(parts)
 
 
 def markdown_blocks(markdown: str, section_class: str = "") -> str:
