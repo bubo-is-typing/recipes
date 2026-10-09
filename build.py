@@ -38,8 +38,8 @@ class Recipe:
     source_url: str
     accessed: str
     tags: list[str]
-    image: str
-    image_alt: str
+    image: str | None
+    image_alt: str | None
     body: str
 
     @property
@@ -80,10 +80,12 @@ def parse_recipe(path: Path) -> Recipe:
             else:
                 meta[key] = []
                 current_list = key
-    required = ("title", "source_creator", "source_url", "accessed", "tags", "image", "image_alt")
+    required = ("title", "source_creator", "source_url", "accessed", "tags")
     missing = [key for key in required if key not in meta]
     if missing:
         raise ValueError(f"{path.name}: missing frontmatter: {', '.join(missing)}")
+    if ("image" in meta) != ("image_alt" in meta):
+        raise ValueError(f"{path.name}: image and image_alt must be supplied together")
     return Recipe(
         slug=path.stem,
         title=str(meta["title"]),
@@ -91,8 +93,8 @@ def parse_recipe(path: Path) -> Recipe:
         source_url=str(meta["source_url"]),
         accessed=str(meta["accessed"]),
         tags=list(meta["tags"]),
-        image=str(meta["image"]),
-        image_alt=str(meta["image_alt"]),
+        image=str(meta["image"]) if "image" in meta else None,
+        image_alt=str(meta["image_alt"]) if "image_alt" in meta else None,
         body=body.strip(),
     )
 
@@ -203,10 +205,16 @@ def shell(title: str, description: str, content: str, *, page_class: str = "") -
 
 def card(recipe: Recipe, index: int) -> str:
     tags = "".join(f'<span class="tag">{html.escape(tag.replace("-", " "))}</span>' for tag in recipe.display_tags)
+    card_image = (
+        f'<img src="{html.escape(recipe.image, quote=True)}" alt="{html.escape(recipe.image_alt or "", quote=True)}" '
+        'width="1200" height="800" loading="lazy" decoding="async" '
+        'sizes="(max-width: 720px) 100vw, (max-width: 1000px) 42vw, 21vw">'
+        if recipe.image else '<span class="image-pending">Photo coming soon</span>'
+    )
     return f'''<article class="recipe-card tone-{index % 4}" data-tags="{' '.join(html.escape(t, quote=True) for t in recipe.tags)}">
       <a class="card-link" href="{recipe.slug}.html" aria-label="Open {html.escape(recipe.title, quote=True)}">
         <div class="card-art">
-          <img src="{html.escape(recipe.image, quote=True)}" alt="{html.escape(recipe.image_alt, quote=True)}" width="1200" height="800" loading="lazy" decoding="async" sizes="(max-width: 720px) 100vw, (max-width: 1000px) 42vw, 21vw">
+          {card_image}
           <i aria-hidden="true">0{index + 1}</i>
         </div>
         <div class="card-copy">
@@ -256,10 +264,16 @@ def build_recipe(recipe: Recipe) -> str:
     notes = markdown_blocks(extract_section(recipe.body, "Notes"), "notes-list")
     sources = markdown_blocks(extract_section(recipe.body, "Sources"), "sources-list")
     tags = "".join(f'<span class="tag">{html.escape(tag.replace("-", " "))}</span>' for tag in recipe.display_tags)
+    hero_image = (
+        f'<figure class="recipe-hero-image"><img src="{html.escape(recipe.image, quote=True)}" '
+        f'alt="{html.escape(recipe.image_alt or "", quote=True)}" width="1200" height="800" '
+        'decoding="async" fetchpriority="high" sizes="(max-width: 720px) 100vw, 48vw"></figure>'
+        if recipe.image else ''
+    )
     content = f'''<main class="recipe-main" id="main">
       <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">All recipes</a><span aria-hidden="true">/</span><span>{html.escape(recipe.title)}</span></nav>
       <article class="recipe" data-pagefind-body>
-        <header class="recipe-hero">
+        <header class="recipe-hero{' no-photo' if not recipe.image else ''}">
           <div class="recipe-hero-copy">
             <p class="eyebrow">Recipe · By {html.escape(recipe.creator)}</p>
             <h1>{html.escape(recipe.title)}</h1>
@@ -270,9 +284,7 @@ def build_recipe(recipe: Recipe) -> str:
               <div><dt>Collected</dt><dd>{html.escape(recipe.accessed)}</dd></div>
             </dl>
           </div>
-          <figure class="recipe-hero-image">
-            <img src="{html.escape(recipe.image, quote=True)}" alt="{html.escape(recipe.image_alt, quote=True)}" width="1200" height="800" decoding="async" fetchpriority="high" sizes="(max-width: 720px) 100vw, 48vw">
-          </figure>
+          {hero_image}
         </header>
         <div class="recipe-actions" aria-label="Recipe actions">
           <button type="button" class="action-button" id="cook-mode"><span aria-hidden="true">◐</span> Cooking mode</button>

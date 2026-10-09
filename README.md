@@ -25,6 +25,7 @@ Markdown recipes collected from videos and other sources.
 - [Apple Waffles with Cinnamon Sugar](apple-waffles-with-cinnamon-sugar.md) — Foodwerk
 - [High-Protein Chocolate Crispy Cakes](high-protein-chocolate-crispy-cakes.md) — Maria Lucey
 - [Greek Yogurt Brownie Batter](greek-yogurt-brownie-batter.md) — Juliana Ksander
+- [High-Protein Frosted Chocolate Oreo Loaf](high-protein-frosted-chocolate-oreo-loaf.md) — Christopher Kai Yu
 
 ## Savoury
 

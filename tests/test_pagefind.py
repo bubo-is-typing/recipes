@@ -18,6 +18,16 @@ class PagefindBuildTests(unittest.TestCase):
         self.assertIn('<article class="recipe" data-pagefind-body>', page)
         self.assertNotIn('<main class="recipe-main" id="main" data-pagefind-body>', page)
 
+    def test_text_first_recipe_has_no_broken_image(self):
+        path = Path(__file__).parents[1] / "high-protein-frosted-chocolate-oreo-loaf.md"
+        recipe = build.parse_recipe(path)
+        self.assertIsNone(recipe.image)
+        self.assertIn("Photo coming soon", build.card(recipe, 0))
+        page = build.build_recipe(recipe)
+        self.assertIn('class="recipe-hero no-photo"', page)
+        self.assertNotIn('<figure class="recipe-hero-image">', page)
+        self.assertIn('name="robots" content="noindex', page)
+
     def test_index_uses_accessible_pagefind_searchbox_with_default_base_url(self):
         with patch.dict(os.environ, {}, clear=True):
             page = build.build_index([self.recipe])

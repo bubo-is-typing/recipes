@@ -17,7 +17,8 @@ images = []
 for recipe in recipes:
     text = recipe.read_text()
     match = re.search(r"^image:\s*(\S+)", text, re.M)
-    assert match, recipe
+    if not match:
+        continue  # Text-first recipes may await a faithful, licensed photograph.
     image = root / match.group(1)
     assert image.exists(), image
     assert image.suffix == ".png", image
@@ -41,6 +42,8 @@ required_pagefind_assets = [
 assert all(path.exists() for path in required_pagefind_assets), required_pagefind_assets
 pagefind_fragments = list((pagefind / "fragment").glob("*.pf_fragment"))
 assert len(pagefind_fragments) == expected_recipes, len(pagefind_fragments)
+if len(images) < expected_recipes:
+    assert "Photo coming soon" in (root / "_site" / "index.html").read_text()
 site_base_url = os.environ.get("SITE_BASE_URL", "/recipes/").strip().strip("/")
 site_base_url = f"/{site_base_url}/" if site_base_url else "/"
 pagefind_bundle_path = f"{site_base_url}pagefind/"
