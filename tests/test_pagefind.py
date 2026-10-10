@@ -1,6 +1,7 @@
 import json
 import os
 import unittest
+from dataclasses import replace
 from pathlib import Path
 from unittest.mock import patch
 
@@ -21,9 +22,11 @@ class PagefindBuildTests(unittest.TestCase):
     def test_text_first_recipe_has_no_broken_image(self):
         path = Path(__file__).parents[1] / "high-protein-frosted-chocolate-oreo-loaf.md"
         recipe = build.parse_recipe(path)
-        self.assertIsNone(recipe.image)
-        self.assertIn("Photo coming soon", build.card(recipe, 0))
-        page = build.build_recipe(recipe)
+        self.assertEqual(recipe.image, "assets/images/high-protein-frosted-chocolate-oreo-loaf.png")
+        self.assertIn(recipe.image, build.build_recipe(recipe))
+        text_only = replace(recipe, image=None, image_alt=None)
+        self.assertIn("Photo coming soon", build.card(text_only, 0))
+        page = build.build_recipe(text_only)
         self.assertIn('class="recipe-hero no-photo"', page)
         self.assertNotIn('<figure class="recipe-hero-image">', page)
         self.assertIn('name="robots" content="noindex', page)

@@ -10,6 +10,8 @@ tags:
   - chocolate
   - oreo
   - high-protein
+image: assets/images/high-protein-frosted-chocolate-oreo-loaf.png
+image_alt: A dark rectangular chocolate cake topped with thick white frosting and chocolate-cookie crumbs on a long off-white ceramic platter.
 ---
 
 # High-Protein Frosted Chocolate Oreo Loaf
