@@ -72,7 +72,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .filter, .action-button { min-height: 42px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); padding: 8px 15px; cursor: pointer; transition: .2s ease; }
 .filter:hover, .filter.is-active, .action-button:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 .filter { text-transform: capitalize; }
-.result-count { margin: 16px 0 28px; color: var(--muted); font-size: .82rem; }
+.catalogue-controls { display: flex; align-items: center; justify-content: space-between; gap: 14px 25px; flex-wrap: wrap; margin: 16px 0 28px; }
+.result-count { margin: 0; color: var(--muted); font-size: .82rem; }
+.sort-control { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); font-size: .82rem; }
+.sort-control select { min-height: 44px; max-width: 100%; border: 1px solid var(--muted); border-radius: 999px; padding: 8px 30px 8px 14px; background: var(--paper); color: var(--ink); font: inherit; cursor: pointer; }
+.sort-control select:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 2px; }
 .recipe-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .recipe-card { min-width: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.16); }
 .card-link { height: 100%; display: grid; grid-template-columns: 42% 1fr; text-decoration: none; }

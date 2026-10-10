@@ -1,4 +1,5 @@
 import json
+import hashlib
 import os
 import unittest
 from dataclasses import replace
@@ -48,6 +49,18 @@ class PagefindBuildTests(unittest.TestCase):
         self.assertNotIn('max-results=', page)
         self.assertNotIn('id="recipe-search"', page)
 
+    def test_catalogue_defaults_to_newest_collected_and_offers_both_date_directions(self):
+        older = replace(self.recipe, slug="older", title="Older", accessed="2026-01-01")
+        newest = replace(self.recipe, slug="newest", title="Newest", accessed="2026-10-10")
+        same_date = replace(self.recipe, slug="same-date", title="A Same Date", accessed="2026-10-10")
+        page = build.build_index([older, newest, same_date])
+        self.assertLess(page.index('href="same-date.html"'), page.index('href="newest.html"'))
+        self.assertLess(page.index('href="newest.html"'), page.index('href="older.html"'))
+        self.assertIn('data-collected="2026-10-10"', page)
+        self.assertIn('<select id="sort-recipes"', page)
+        self.assertIn('<option value="newest" selected>Newest first</option>', page)
+        self.assertIn('<option value="oldest">Oldest first</option>', page)
+
     def test_index_uses_root_pagefind_paths_for_cloudflare_pages(self):
         with patch.dict(os.environ, {"SITE_BASE_URL": "/"}, clear=True):
             page = build.build_index([self.recipe])
@@ -63,6 +76,13 @@ class PagefindBuildTests(unittest.TestCase):
         for value in ("", "/", "///"):
             with self.subTest(value=value):
                 self.assertEqual(build.normalize_site_base_url(value), "/")
+
+    def test_changed_assets_get_content_based_cache_busting(self):
+        page = build.build_index([self.recipe])
+        root = Path(__file__).parents[1] / "assets"
+        for asset in ("site.js", "style.css"):
+            digest = hashlib.sha256((root / asset).read_bytes()).hexdigest()[:12]
+            self.assertIn(f"assets/{asset}?v={digest}", page)
 
     def test_cloudflare_headers_cover_all_paths(self):
         self.assertEqual(
@@ -102,7 +122,7 @@ class PagefindBuildTests(unittest.TestCase):
         package = json.loads(package_path.read_text())
         self.assertEqual(package["devDependencies"]["pagefind"], "1.5.2")
         self.assertEqual(package["scripts"]["build"], "python3 build.py && pagefind --site _site")
-        self.assertEqual(package["scripts"]["test"], "python3 -m unittest discover -s tests -v")
+        self.assertEqual(package["scripts"]["test"], "python3 -m unittest discover -s tests -v && node --test tests/test_sort.js")
         self.assertEqual(package["scripts"]["verify"], "python3 verify_site.py")
 
 

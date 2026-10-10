@@ -3,7 +3,19 @@
   const filters = [...document.querySelectorAll('.filter')];
   const count = document.querySelector('#result-count');
   const empty = document.querySelector('#empty-state');
+  const sort = document.querySelector('#sort-recipes');
+  const grid = document.querySelector('#recipe-grid');
   let activeTag = 'all';
+
+  sort?.addEventListener('change', () => {
+    const direction = sort.value === 'oldest' ? 1 : -1;
+    const ordered = [...cards].sort((a, b) => direction * a.dataset.collected.localeCompare(b.dataset.collected));
+    ordered.forEach((card, index) => {
+      grid.appendChild(card);
+      const badge = card.querySelector('.card-art i');
+      if (badge) badge.textContent = String(index + 1).padStart(2, '0');
+    });
+  });
 
   const applyFilters = () => {
     let visible = 0;

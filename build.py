@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import html
+import hashlib
 import os
 import re
 import shutil
@@ -167,6 +168,8 @@ def markdown_blocks(markdown: str, section_class: str = "") -> str:
 
 
 def shell(title: str, description: str, content: str, *, page_class: str = "") -> str:
+    css_version = hashlib.sha256((ASSETS / "style.css").read_bytes()).hexdigest()[:12]
+    js_version = hashlib.sha256((ASSETS / "site.js").read_bytes()).hexdigest()[:12]
     pagefind_assets = ""
     if page_class == "home-page":
         pagefind_assets = '''
@@ -182,8 +185,8 @@ def shell(title: str, description: str, content: str, *, page_class: str = "") -
   <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <meta name="theme-color" content="#f5eee2">
   <title>{html.escape(title)} · The Recipe Index</title>
-  <link rel="stylesheet" href="assets/style.css">{pagefind_assets}
-  <script src="assets/site.js" defer></script>
+  <link rel="stylesheet" href="assets/style.css?v={css_version}">{pagefind_assets}
+  <script src="assets/site.js?v={js_version}" defer></script>
 </head>
 <body class="{page_class}">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -211,7 +214,7 @@ def card(recipe: Recipe, index: int) -> str:
         'sizes="(max-width: 720px) 100vw, (max-width: 1000px) 42vw, 21vw">'
         if recipe.image else '<span class="image-pending">Photo coming soon</span>'
     )
-    return f'''<article class="recipe-card tone-{index % 4}" data-tags="{' '.join(html.escape(t, quote=True) for t in recipe.tags)}">
+    return f'''<article class="recipe-card tone-{index % 4}" data-tags="{' '.join(html.escape(t, quote=True) for t in recipe.tags)}" data-collected="{html.escape(recipe.accessed, quote=True)}">
       <a class="card-link" href="{recipe.slug}.html" aria-label="Open {html.escape(recipe.title, quote=True)}">
         <div class="card-art">
           {card_image}
@@ -234,7 +237,8 @@ def build_index(recipes: list[Recipe]) -> str:
     all_tags = sorted({tag for recipe in recipes for tag in recipe.display_tags})
     filters = ['<button class="filter is-active" type="button" data-tag="all" aria-pressed="true">All recipes</button>']
     filters += [f'<button class="filter" type="button" data-tag="{html.escape(tag, quote=True)}" aria-pressed="false">{html.escape(tag.replace("-", " "))}</button>' for tag in all_tags]
-    cards = "\n".join(card(recipe, i) for i, recipe in enumerate(recipes))
+    newest_first = sorted(recipes, key=lambda recipe: (-int(recipe.accessed.replace("-", "")), recipe.title.casefold()))
+    cards = "\n".join(card(recipe, i) for i, recipe in enumerate(newest_first))
     content = f'''<main id="main">
       <section class="hero">
         <div class="hero-copy">
@@ -250,7 +254,10 @@ def build_index(recipes: list[Recipe]) -> str:
           <div class="search"><pagefind-config base-url="{site_base_url}" bundle-path="{pagefind_bundle_path}"></pagefind-config><pagefind-searchbox placeholder="Search recipes and ingredients…" show-sub-results></pagefind-searchbox></div>
         </div>
         <div class="filters" role="group" aria-label="Filter recipes by tag">{''.join(filters)}</div>
-        <p id="result-count" class="result-count" aria-live="polite">Showing all {len(recipes)} recipes</p>
+        <div class="catalogue-controls">
+          <p id="result-count" class="result-count" aria-live="polite">Showing all {len(recipes)} recipes</p>
+          <label class="sort-control" for="sort-recipes">Date added <select id="sort-recipes"><option value="newest" selected>Newest first</option><option value="oldest">Oldest first</option></select></label>
+        </div>
         <div class="recipe-grid" id="recipe-grid">{cards}</div>
         <div class="empty-state" id="empty-state" hidden><span aria-hidden="true">◇</span><h3>No recipes found</h3><p>Try another word or clear the selected filter.</p></div>
       </section>
