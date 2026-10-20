@@ -20,6 +20,19 @@ class PagefindBuildTests(unittest.TestCase):
         self.assertIn('<article class="recipe" data-pagefind-body>', page)
         self.assertNotIn('<main class="recipe-main" id="main" data-pagefind-body>', page)
 
+    def test_joey_cheese_crackers_preserve_source_recipe(self):
+        path = Path(__file__).parents[1] / "four-ingredient-parmesan-cheese-crackers.md"
+        recipe = build.parse_recipe(path)
+        self.assertEqual(recipe.creator, "Joey Wellness")
+        self.assertEqual(recipe.source_url, "https://youtube.com/shorts/rp2EMGJm2c4?is=rdAy-3K9cH7KKqc4")
+        self.assertIn("savoury", recipe.tags)
+        page = build.build_recipe(recipe)
+        for detail in ("200 g", "1 cup", "4 tbsp", "3 tbsp", "350°F", "12 minutes", "1 hour"):
+            self.assertIn(detail, page)
+        self.assertIn("Cheese Crackers", page)
+        index = (Path(__file__).parents[1] / "README.md").read_text()
+        self.assertIn("four-ingredient-parmesan-cheese-crackers.md", index)
+
     def test_text_first_recipe_has_no_broken_image(self):
         path = Path(__file__).parents[1] / "high-protein-frosted-chocolate-oreo-loaf.md"
         recipe = build.parse_recipe(path)

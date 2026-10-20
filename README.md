@@ -29,6 +29,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Savoury
 
+- [Four-Ingredient Parmesan Cheese Crackers](four-ingredient-parmesan-cheese-crackers.md) — Joey Wellness
 - [Home-Oven Pepperoni Pizza with 3-Day Dough](home-oven-pepperoni-pizza.md) — Dough Guy
 - [High-Protein Rice-Paper Chicken Nuggets](high-protein-rice-paper-chicken-nuggets.md) — MAX (@maxxpane; original video credited to @panaceapalm)
 - [Creamy Boursin Chicken Orzo Bake](creamy-boursin-chicken-orzo-bake.md) — Unknown creator (user-provided screenshot)
