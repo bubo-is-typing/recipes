@@ -3,6 +3,8 @@ title: Four-Ingredient Parmesan Cheese Crackers
 source_creator: Joey Wellness
 source_url: https://youtube.com/shorts/rp2EMGJm2c4?is=rdAy-3K9cH7KKqc4
 accessed: 2026-10-21
+image: assets/images/four-ingredient-parmesan-cheese-crackers.png
+image_alt: Small golden square crackers with crimped edges piled in a shallow cream ceramic bowl on off-white linen.
 tags:
   - recipe
   - savoury

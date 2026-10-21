@@ -30,6 +30,12 @@ class PagefindBuildTests(unittest.TestCase):
         for detail in ("200 g", "1 cup", "4 tbsp", "3 tbsp", "350°F", "12 minutes", "1 hour"):
             self.assertIn(detail, page)
         self.assertIn("Cheese Crackers", page)
+        image = "assets/images/four-ingredient-parmesan-cheese-crackers.png"
+        self.assertEqual(recipe.image, image)
+        self.assertTrue((Path(__file__).parents[1] / image).is_file())
+        self.assertIn(f'<figure class="recipe-hero-image"><img src="{image}"', page)
+        self.assertNotIn('class="recipe-hero no-photo"', page)
+        self.assertIn(f'src="{image}"', build.card(recipe, 0))
         index = (Path(__file__).parents[1] / "README.md").read_text()
         self.assertIn("four-ingredient-parmesan-cheese-crackers.md", index)
 
