@@ -10,6 +10,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Desserts
 
+- [Peanut Butter Chickpea Chocolate Chip Cookies](peanut-butter-chickpea-chocolate-chip-cookies.md) — Stefan Bodegrajac
 - [Homemade Oreos](homemade-oreos.md) — KineleVital
 - [Homemade Snickers Bars](homemade-snickers-bars.md) — KineleVital
 - [Homemade Ferrero Rocher–Style Balls](homemade-ferrero-rocher-style-balls.md) — KineleVital

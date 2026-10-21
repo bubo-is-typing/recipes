@@ -39,6 +39,24 @@ class PagefindBuildTests(unittest.TestCase):
         index = (Path(__file__).parents[1] / "README.md").read_text()
         self.assertIn("four-ingredient-parmesan-cheese-crackers.md", index)
 
+    def test_chickpea_cookies_preserve_creators_recipe(self):
+        path = Path(__file__).parents[1] / "peanut-butter-chickpea-chocolate-chip-cookies.md"
+        recipe = build.parse_recipe(path)
+        self.assertEqual(recipe.creator, "Stefan Bodegrajac")
+        self.assertEqual(recipe.source_url, "https://youtube.com/shorts/NoQyWn4wqvo?is=ExH3QwToGpAqCxyM")
+        self.assertIn("dessert", recipe.tags)
+        page = build.build_recipe(recipe)
+        for detail in ("600 g", "40 g", "20 g", "1 tsp", "30 g", "12 cookies", "180°C", "15–20 minutes", "91 calories"):
+            self.assertIn(detail, page)
+        self.assertIn("peanut-butter-chickpea-chocolate-chip-cookies.md", (Path(__file__).parents[1] / "README.md").read_text())
+        image = "assets/images/peanut-butter-chickpea-chocolate-chip-cookies.png"
+        self.assertEqual(recipe.image, image)
+        self.assertTrue((Path(__file__).parents[1] / image).is_file())
+        self.assertIn(f'<figure class="recipe-hero-image"><img src="{image}"', page)
+        self.assertIn(f'src="{image}"', build.card(recipe, 0))
+        self.assertIn("Edgar Torabyan", page)
+        self.assertIn("unsplash.com/license", page)
+
     def test_text_first_recipe_has_no_broken_image(self):
         path = Path(__file__).parents[1] / "high-protein-frosted-chocolate-oreo-loaf.md"
         recipe = build.parse_recipe(path)
