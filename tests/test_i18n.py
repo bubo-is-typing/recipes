@@ -67,6 +67,15 @@ class BilingualBuildTests(unittest.TestCase):
         self.assertIn('href="/"', english)
         self.assertNotIn('href="/recipes/"', english)
         self.assertIn('<html lang="de-CH">', german)
+        self.assertIn('href="/404.html"', german)
+        self.assertIn('href="/de/404.html"', english)
+        self.assertIn('href="/assets/style.css?v=', german)
+        self.assertIn('src="/assets/site.js?v=', german)
+        with patch.dict('os.environ', {'SITE_BASE_URL': '/recipes/'}, clear=True):
+            subpath = build.build_not_found(locale='de-CH')
+        self.assertIn('href="/recipes/404.html"', subpath)
+        self.assertIn('href="/recipes/de/404.html"', subpath)
+        self.assertIn('href="/recipes/assets/style.css?v=', subpath)
 
     def test_german_creator_context_is_translated_without_altering_attribution(self):
         unknown = build.parse_recipe(build.ROOT / 'de' / 'creamy-boursin-chicken-orzo-bake.md')

@@ -213,9 +213,15 @@ def markdown_blocks(markdown: str, section_class: str = "") -> str:
 
 def shell(title: str, description: str, content: str, *, page_class: str = "", locale: str = "en", slug: str | None = None) -> str:
     t = UI[locale]
-    prefix = "../" if locale == DE else ""
-    english_link = f"{prefix}{slug}.html" if slug else f"{prefix}index.html"
-    german_link = f"{slug}.html" if locale == DE and slug else (f"de/{slug}.html" if slug else ("index.html" if locale == DE else "de/index.html"))
+    is_not_found = page_class == "not-found-page"
+    prefix = normalize_site_base_url() if is_not_found else ("../" if locale == DE else "")
+    if is_not_found:
+        english_link = f"{prefix}404.html"
+        german_link = f"{prefix}de/404.html"
+    else:
+        english_link = f"{prefix}{slug}.html" if slug else f"{prefix}index.html"
+        german_link = f"{slug}.html" if locale == DE and slug else (f"de/{slug}.html" if slug else ("index.html" if locale == DE else "de/index.html"))
+    home_link = (normalize_site_base_url() + ("de/" if locale == DE else "")) if is_not_found else "index.html"
     en_current = ' aria-current="page"' if locale == "en" else ""
     de_current = ' aria-current="page"' if locale == DE else ""
     language_switch = (f'<nav class="language-switch" aria-label="{"Sprache wählen" if locale == DE else "Choose language"}">'
@@ -244,7 +250,7 @@ def shell(title: str, description: str, content: str, *, page_class: str = "", l
 <body class="{page_class}">
   <a class="skip-link" href="#main">{t['skip']}</a>
   <header class="site-header">
-    <a class="wordmark" href="index.html" aria-label="{t['site']}, {t['all']}">
+    <a class="wordmark" href="{home_link}" aria-label="{t['site']}, {t['all']}">
       <span class="wordmark-mark" aria-hidden="true">✦</span>
       <span>{t['site']}</span>
     </a>
@@ -381,7 +387,7 @@ def build_not_found(locale: str = "en") -> str:
         </div>
       </section>
     </main>'''
-    return shell(t['page_title'], t['notfound_meta'], content, locale=locale)
+    return shell(t['page_title'], t['notfound_meta'], content, page_class="not-found-page", locale=locale)
 
 
 def main() -> None:
