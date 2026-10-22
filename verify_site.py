@@ -31,6 +31,20 @@ for recipe in recipes:
 
 html = sorted((root / "_site").glob("*.html"))
 assert len(html) == expected_recipes + 2, len(html)
+de_html = sorted((root / "_site" / "de").glob("*.html"))
+assert len(de_html) == expected_recipes + 2, len(de_html)
+for page in html + de_html:
+    content = page.read_text(encoding="utf-8")
+    for crawler in ("robots", "googlebot"):
+        assert f'<meta name="{crawler}" content="noindex, nofollow, noarchive, nosnippet, noimageindex">' in content, page
+for recipe in recipes:
+    english_page = (root / "_site" / f"{recipe.stem}.html").read_text(encoding="utf-8")
+    german_page = (root / "_site" / "de" / f"{recipe.stem}.html").read_text(encoding="utf-8")
+    assert f'href="de/{recipe.stem}.html"' in english_page, recipe
+    assert f'href="../{recipe.stem}.html"' in german_page, recipe
+    assert '<html lang="de-CH">' in german_page, recipe
+    assert 'data-pagefind-body' in german_page, recipe
+    assert 'name="robots" content="noindex' in german_page, recipe
 stale_svg = list((root / "_site" / "assets" / "images").glob("*.svg"))
 assert not stale_svg, stale_svg
 pagefind = root / "_site" / "pagefind"
@@ -41,7 +55,11 @@ required_pagefind_assets = [
 ]
 assert all(path.exists() for path in required_pagefind_assets), required_pagefind_assets
 pagefind_fragments = list((pagefind / "fragment").glob("*.pf_fragment"))
-assert len(pagefind_fragments) == expected_recipes, len(pagefind_fragments)
+assert len(pagefind_fragments) == 2 * expected_recipes, len(pagefind_fragments)
+assert len(list((pagefind / "fragment").glob("en_*.pf_fragment"))) == expected_recipes
+assert len(list((pagefind / "fragment").glob("de-ch_*.pf_fragment"))) == expected_recipes
+assert list(pagefind.glob("pagefind.en_*.pf_meta"))
+assert list(pagefind.glob("pagefind.de-ch_*.pf_meta"))
 if len(images) < expected_recipes:
     assert "Photo coming soon" in (root / "_site" / "index.html").read_text()
 site_base_url = os.environ.get("SITE_BASE_URL", "/recipes/").strip().strip("/")
@@ -53,6 +71,11 @@ expected_pagefind_config = (
     f'bundle-path="{pagefind_bundle_path}"></pagefind-config>'
 )
 assert expected_pagefind_config in index, expected_pagefind_config
+de_index = (root / "_site" / "de" / "index.html").read_text(encoding="utf-8")
+assert expected_pagefind_config in de_index, expected_pagefind_config
+assert '<html lang="de-CH">' in de_index
+assert 'href="../pagefind/pagefind-component-ui.css"' in de_index
+assert 'src="../pagefind/pagefind-component-ui.js"' in de_index
 headers = (root / "_site" / "_headers").read_text(encoding="utf-8")
 expected_headers = """/*
   X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
@@ -76,6 +99,8 @@ base = f"http://127.0.0.1:{server.server_address[1]}"
 urls = (
     ["/"]
     + [f"/{recipe.stem}.html" for recipe in recipes]
+    + ["/de/", "/de/404.html"]
+    + [f"/de/{recipe.stem}.html" for recipe in recipes]
     + [f"/assets/images/{name}" for name, _ in images]
     + ["/assets/style.css", "/assets/site.js"]
     + [f"/pagefind/{path.name}" for path in required_pagefind_assets]
@@ -90,7 +115,7 @@ finally:
     server.shutdown()
     server.server_close()
 print(
-    f"recipes={expected_recipes} html_pages={len(html)} "
+    f"recipes={expected_recipes} html_pages={len(html) + len(de_html)} "
     f"png_images={len(images)} pagefind_pages={len(pagefind_fragments)} "
     f"http_200_checks={len(urls)} headers=PASS base_url={site_base_url}"
 )

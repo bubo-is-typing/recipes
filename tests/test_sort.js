@@ -52,3 +52,37 @@ test('sorting retains an active tag filter and its result count', () => {
   assert.deepEqual(grid.children.filter(card => !card.hidden).map(card => card.querySelector('h2').textContent), ['Older', 'A newest']);
   assert.equal(count.textContent, '2 recipes found');
 });
+
+function languagePage({ pathname = '/recipes/', languages = ['de-CH', 'en'], cookie = '', lang = 'en' } = {}) {
+  const links = ['en', 'de-CH'].map(language => ({
+    dataset: { language },
+    getAttribute: () => language === 'en' ? 'index.html' : 'de/index.html',
+    listeners: {}, addEventListener(name, callback) { this.listeners[name] = callback; },
+  }));
+  const location = { href: `https://example.test${pathname}`, pathname, assigned: null, assign(url) { this.assigned = url; } };
+  const document = {
+    cookie,
+    documentElement: { lang },
+    querySelectorAll(selector) { return selector === '[data-language]' ? links : []; },
+    querySelector() { return null; },
+    addEventListener() {},
+  };
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '..', 'assets', 'site.js'), 'utf8'), {
+    document, navigator: { languages }, window: { location }, URL,
+  });
+  return { document, links, location };
+}
+
+test('browser German preference redirects English entry but not direct German pages', () => {
+  assert.equal(languagePage().location.assigned, 'https://example.test/recipes/de/index.html');
+  assert.equal(languagePage({ pathname: '/recipes/de/index.html', lang: 'de-CH' }).location.assigned, null);
+  assert.equal(languagePage({ pathname: '/recipes/', languages: ['en-US', 'de-CH'] }).location.assigned, null);
+  assert.equal(languagePage({ pathname: '/recipes/', cookie: 'lang=en' }).location.assigned, null);
+  assert.equal(languagePage({ pathname: '/' }).location.assigned, 'https://example.test/de/index.html');
+});
+
+test('explicit language choice writes persistent scoped cookie', () => {
+  const { links, document } = languagePage({ pathname: '/recipes/de/index.html', lang: 'de-CH' });
+  links[0].listeners.click();
+  assert.match(document.cookie, /^lang=en; Path=\/; SameSite=Lax; Max-Age=31536000$/);
+});

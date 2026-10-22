@@ -45,6 +45,12 @@ Markdown recipes collected from videos and other sources.
 
 Each recipe keeps its original source link, creator attribution, access date, and notes about details the source did not specify.
 
+## Languages
+
+The English recipe Markdown at the repository root is the source-faithful original. Add a Swiss Standard German translation at `de/<same-slug>.md` for **every** recipe; keep creator names, source links, dates, tags, image paths and quantities aligned while translating the title, image alt text, ingredients, method, notes and visible source descriptions. Write German with `ss` rather than `ß`. The build checks for one matching translation per English recipe and produces both language versions.
+
+When adding a recipe, add its English Markdown, its `de/` translation and a link here before publishing. Review both languages, run `npm test`, `npm run build` and `npm run verify`, then check the English and German pages, catalogue, search, and language switch after deployment. An explicit language choice is remembered in a cookie; otherwise the site uses the browser’s preferred language.
+
 ## Local development
 
 ```bash
