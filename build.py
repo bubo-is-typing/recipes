@@ -11,9 +11,12 @@ import shutil
 from dataclasses import dataclass
 from pathlib import Path
 
+from PIL import Image, ImageDraw, ImageFont, ImageOps
+
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "_site"
 ASSETS = ROOT / "assets"
+FONTS = ROOT / "fonts"
 DEFAULT_SITE_BASE_URL = "/recipes/"
 DE = "de-CH"
 UI = {
@@ -51,6 +54,82 @@ def normalize_site_base_url(value: str | None = None) -> str:
     raw_value = os.environ.get("SITE_BASE_URL", DEFAULT_SITE_BASE_URL) if value is None else value
     path = raw_value.strip().strip("/")
     return f"/{path}/" if path else "/"
+
+
+def social_metadata(title: str, description: str, locale: str, slug: str | None, image_alt: str) -> str:
+    base = normalize_site_base_url()
+    origin = os.environ.get("SITE_ORIGIN", "https://recipes.bubo.page" if base == "/" else "https://bubo-is-typing.github.io").rstrip("/")
+    if not origin.startswith("https://") or "/" in origin[8:]:
+        raise ValueError("SITE_ORIGIN must be an HTTPS origin without a path")
+    language = "de/" if locale == DE else ""
+    name = (f"{slug}{'' if base == '/' else '.html'}" if slug else ("" if base == "/" else "index.html"))
+    card = f"{slug}.png" if slug else "index.png"
+    url = f"{origin}{base}{language}{name}"
+    image = f"{origin}{base}og/{language}{card}"
+    esc = lambda value: html.escape(value, quote=True)
+    fields = [("property", "og:type", "article" if slug else "website"),
+              ("property", "og:locale", "de_CH" if locale == DE else "en_US"),
+              ("property", "og:site_name", UI[locale]["site"]),
+              ("property", "og:title", title), ("property", "og:description", description),
+              ("property", "og:url", url), ("property", "og:image", image),
+              ("property", "og:image:type", "image/png"), ("property", "og:image:width", "1200"),
+              ("property", "og:image:height", "630"), ("property", "og:image:alt", image_alt),
+              ("name", "twitter:card", "summary_large_image"), ("name", "twitter:image", image),
+              ("name", "twitter:title", title), ("name", "twitter:description", description)]
+    return "\n  ".join(f'<meta {attr}="{key}" content="{esc(value)}">' for attr, key, value in fields)
+
+
+def render_social_card(recipe: Recipe | None, locale: str, output: Path) -> None:
+    """Render a reproducible branded card from the actual recipe photograph (if present)."""
+    title = recipe.title if recipe else UI[locale]["site"]
+    with_photo = bool(recipe and recipe.image)
+    left = 510 if with_photo else 0
+    canvas = Image.new("RGB", (1200, 630), "#fbf8f2")
+    if with_photo:
+        assert recipe is not None and recipe.image is not None
+        source = ROOT / recipe.image
+        with Image.open(source) as photo:
+            canvas.paste(ImageOps.fit(photo.convert("RGB"), (510, 630), method=Image.Resampling.LANCZOS), (0, 0))
+    draw = ImageDraw.Draw(canvas)
+    draw.rectangle((left, 0, left + 9, 630), fill="#b44e36")
+    x = left + 72
+    width = 1200 - x - 68
+    label_font = ImageFont.truetype(FONTS / "DMSans.ttf", 23)
+    draw.text((x, 67), UI[locale]["site"].upper(), font=label_font, fill="#b44e36")
+    draw.line((x, 111, x + min(width, 405), 111), fill="#d9b5a6", width=2)
+
+    def wrap(font: ImageFont.FreeTypeFont) -> list[str]:
+        lines: list[str] = []
+        current = ""
+        for word in title.split():
+            candidate = f"{current} {word}".strip()
+            if draw.textlength(candidate, font=font) <= width:
+                current = candidate
+            else:
+                if current:
+                    lines.append(current)
+                current = word
+        if current:
+            lines.append(current)
+        return lines
+
+    for size in range(78, 27, -2):
+        title_font = ImageFont.truetype(FONTS / "Fraunces.ttf", size)
+        title_font.set_variation_by_name("Bold")
+        lines = wrap(title_font)
+        line_height = int(size * 1.14)
+        if lines and len(lines) * line_height <= 380 and all(draw.textlength(line, font=title_font) <= width for line in lines):
+            break
+    else:
+        raise ValueError(f"Social title does not fit: {title}")
+    y = 145 + (380 - len(lines) * line_height) // 2
+    for line in lines:
+        draw.text((x, y), line, font=title_font, fill="#27231f", stroke_width=0)
+        y += line_height
+    draw.line((x, 552, x + 44, 552), fill="#b44e36", width=4)
+    draw.text((x + 60, 539), UI[locale]["edition"], font=ImageFont.truetype(FONTS / "DMSans.ttf", 20), fill="#645a52")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    canvas.save(output, format="PNG", optimize=False)
 
 
 @dataclass
@@ -211,7 +290,7 @@ def markdown_blocks(markdown: str, section_class: str = "") -> str:
     return f"<div{class_attr}>{''.join(output)}</div>"
 
 
-def shell(title: str, description: str, content: str, *, page_class: str = "", locale: str = "en", slug: str | None = None) -> str:
+def shell(title: str, description: str, content: str, *, page_class: str = "", locale: str = "en", slug: str | None = None, image_alt: str = "") -> str:
     t = UI[locale]
     is_not_found = page_class == "not-found-page"
     prefix = normalize_site_base_url() if is_not_found else ("../" if locale == DE else "")
@@ -234,12 +313,14 @@ def shell(title: str, description: str, content: str, *, page_class: str = "", l
         pagefind_assets = f'''
   <link rel="stylesheet" href="{prefix}pagefind/pagefind-component-ui.css">
   <script src="{prefix}pagefind/pagefind-component-ui.js" type="module"></script>'''
+    social = social_metadata(title, description, locale, slug, image_alt) if not is_not_found else ""
     return f'''<!doctype html>
 <html lang="{locale}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{html.escape(description, quote=True)}">
+  {social}
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <meta name="theme-color" content="#f5eee2">
@@ -324,7 +405,7 @@ def build_index(recipes: list[Recipe], locale: str = "en") -> str:
         <div class="empty-state" id="empty-state" hidden><span aria-hidden="true">◇</span><h3>{t['empty']}</h3><p>{t['empty_hint']}</p></div>
       </section>
     </main>'''
-    return shell(t['all'], t['hero_intro'], content, page_class="home-page", locale=locale)
+    return shell(t['all'], t['hero_intro'], content, page_class="home-page", locale=locale, image_alt=t['site'])
 
 
 def build_recipe(recipe: Recipe, locale: str = "en") -> str:
@@ -372,7 +453,8 @@ def build_recipe(recipe: Recipe, locale: str = "en") -> str:
       <div class="cook-bar" id="cook-bar" hidden><span>{t['cook']}</span><button type="button" id="exit-cook-mode">{t['exit']}</button></div>
     </main>'''
     description = f"{recipe.title}, {t['recipe'].lower()} · {t['by']} {creator_label(recipe.creator, locale)}."
-    return shell(recipe.title, description, content, page_class="recipe-page", locale=locale, slug=recipe.slug)
+    return shell(recipe.title, description, content, page_class="recipe-page", locale=locale, slug=recipe.slug,
+                 image_alt=f"{recipe.title} — {recipe.image_alt}" if recipe.image_alt else recipe.title)
 
 
 def build_not_found(locale: str = "en") -> str:
@@ -405,10 +487,14 @@ def main() -> None:
     (OUT / "de").mkdir()
     (OUT / "index.html").write_text(build_index(recipes), encoding="utf-8")
     (OUT / "de" / "index.html").write_text(build_index(german_recipes, DE), encoding="utf-8")
+    render_social_card(None, "en", OUT / "og" / "index.png")
+    render_social_card(None, DE, OUT / "og" / "de" / "index.png")
     for recipe in recipes:
         (OUT / f"{recipe.slug}.html").write_text(build_recipe(recipe), encoding="utf-8")
+        render_social_card(recipe, "en", OUT / "og" / f"{recipe.slug}.png")
     for recipe in german_recipes:
         (OUT / "de" / f"{recipe.slug}.html").write_text(build_recipe(recipe, DE), encoding="utf-8")
+        render_social_card(recipe, DE, OUT / "og" / "de" / f"{recipe.slug}.png")
     (OUT / "404.html").write_text(build_not_found(), encoding="utf-8")
     (OUT / "de" / "404.html").write_text(build_not_found(DE), encoding="utf-8")
     (OUT / ".nojekyll").write_text("", encoding="utf-8")

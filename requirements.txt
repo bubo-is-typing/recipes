@@ -1,0 +1,2 @@
+# OG card renderer; installed by CI before tests and builds.
+Pillow==11.3.0

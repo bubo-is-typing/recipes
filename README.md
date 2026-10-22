@@ -54,6 +54,9 @@ When adding a recipe, add its English Markdown, its `de/` translation and a link
 ## Local development
 
 ```bash
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements.txt
 npm ci
 npm test
 npm run build
@@ -62,6 +65,10 @@ npx pagefind --site _site --serve
 ```
 
 `npm run build` generates the static site and a fully client-side Pagefind index in `_site/`. Search requires serving `_site/` over HTTP rather than opening `index.html` directly.
+
+The build also generates localized 1200×630 social cards in `_site/og/` and `_site/og/de/` for every recipe and both catalogues. Cards use each recipe's existing image where available; image-free recipes receive typography-only cards. The bundled Fraunces and DM Sans font files are licensed under their corresponding `fonts/OFL-*.txt` licenses (Google Fonts source revision `45e3d5269e4a17d823f6d84470bc084dc5ae46f6`). The cards reuse recipe images; the recipe pages retain their existing source attribution. No new photography is introduced.
+
+Open Graph URLs use `https://recipes.bubo.page/` for a root build and `https://bubo-is-typing.github.io/recipes/` for the default subpath build. Set `SITE_ORIGIN` to an HTTPS origin if hosting under another domain. The existing `noindex` and `X-Robots-Tag` policy is unchanged; some social crawlers may therefore decline to show a preview despite valid metadata.
 
 ## Deployment
 
