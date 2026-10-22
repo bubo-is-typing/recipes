@@ -12,8 +12,8 @@ tags:
   - tomatoes
   - courgette
   - pasta-bake
-image: assets/images/creamy-boursin-chicken-orzo-bake-v3.png
-image_alt: Nahaufnahme von cremigem Poulet-Orzo mit prallen, festen Risoni-Nudeln und einer Sauce mit Kräutern in einer weissen Keramikform.
+image: assets/images/creamy-boursin-chicken-orzo-bake-v4.png
+image_alt: Weisse Keramikform mit cremigem Orzo, Pouletstücken, Cherrytomaten, Courgettenscheiben und Basilikum.
 ---
 
 # Cremiger Boursin-Poulet-Orzo-Auflauf
@@ -49,8 +49,9 @@ image_alt: Nahaufnahme von cremigem Poulet-Orzo mit prallen, festen Risoni-Nudel
 - Die Quelle nennt weder Mengen für Basilikum, Chiliflocken, Oregano, Salz oder schwarzen Pfeffer noch die Grösse der Backform.
 - Eine Überschrift für Nährwerte pro Portion ist sichtbar, die Werte selbst sind auf dem bereitgestellten Screenshot jedoch abgeschnitten.
 - Name und Account der Urheberin bzw. des Urhebers, Plattform und ursprüngliche Quell-URL sind auf dem Screenshot nicht sichtbar. Der Werbetext oberhalb des Rezepts wurde hier nicht übernommen.
+- Das Titelbild wurde mit KI generiert und dient der Illustration. Es ist kein Foto des fertigen Gerichts der ursprünglichen Urheberschaft.
 
 ## Sources
 
 - Von der Benutzerin bzw. vom Benutzer bereitgestellter Screenshot der Rezeptbeschreibung, erhalten am 16. September 2026. Ursprüngliche Urheberschaft und URL waren nicht sichtbar.
-- Titelbild bearbeitet nach [«Орзо со пилешко»](https://commons.wikimedia.org/wiki/File:%D0%9E%D1%80%D0%B7%D0%BE_%D1%81%D0%BE_%D0%BF%D0%B8%D0%BB%D0%B5%D1%88%D0%BA%D0%BE.jpg) von Deodora333, lizenziert unter [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Zugeschnitten und in Helligkeit, Kontrast und Farbe angepasst.
+- Titelbild mit einem lokalen KI-Bildmodell anhand der Zutaten und Zubereitung dieses Rezepts erstellt und vom Betreiber der Rezeptsammlung ausgewählt. Es ist eine Illustration, kein Originalfoto.
