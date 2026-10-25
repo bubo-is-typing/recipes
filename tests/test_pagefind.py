@@ -57,6 +57,21 @@ class PagefindBuildTests(unittest.TestCase):
         self.assertIn("Edgar Torabyan", page)
         self.assertIn("unsplash.com/license", page)
 
+    def test_apple_oat_muffins_preserve_fifth_ingredient_and_honey_discrepancy(self):
+        root = Path(__file__).parents[1]
+        english = build.parse_recipe(root / "five-ingredient-apple-oat-muffins.md")
+        german = build.parse_recipe(root / "de" / "five-ingredient-apple-oat-muffins.md")
+        self.assertEqual(english.source_url, "https://youtube.com/shorts/HTLbCO_vqq8?is=3-rimTYNC035CPAH")
+        self.assertEqual(english.creator, german.creator)
+        self.assertIsNone(english.image)
+        self.assertIn("five-ingredient-apple-oat-muffins.md", (root / "README.md").read_text())
+        for detail in ("2 apples", "2 cups", "2 large eggs", "30 g honey", "1 tsp ground cinnamon", "12 muffins", "350°F", "30 minutes", "¼ cup raw honey"):
+            self.assertIn(detail, build.build_recipe(english))
+        self.assertIn("@homestead.wellness.daily", build.build_recipe(english))
+        self.assertIn("1 TL gemahlener Zimt", build.build_recipe(german, locale=build.DE))
+        self.assertIn("inspiriert von", build.build_recipe(german, locale=build.DE))
+        self.assertNotIn("ß", (root / "de" / "five-ingredient-apple-oat-muffins.md").read_text())
+
     def test_text_first_recipe_has_no_broken_image(self):
         path = Path(__file__).parents[1] / "high-protein-frosted-chocolate-oreo-loaf.md"
         recipe = build.parse_recipe(path)

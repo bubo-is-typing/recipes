@@ -7,6 +7,7 @@ Markdown recipes collected from videos and other sources.
 - [Magnum-Style Chocolate Chia Pudding](magnum-style-chocolate-chia-pudding.md) — Juliana Ksander
 - [High-Protein Tiramisu Oats](high-protein-tiramisu-oats.md) — Fitness.Compani0n
 - [Date Caramel Blended Oats](date-caramel-blended-oats.md) — Liz Douglas
+- [Five-Ingredient Apple Oat Muffins](five-ingredient-apple-oat-muffins.md) — FirstTakeHadrian (inspired by @homestead.wellness.daily)
 
 ## Desserts
 
