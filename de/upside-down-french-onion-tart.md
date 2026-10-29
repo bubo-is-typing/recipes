@@ -10,6 +10,8 @@ tags:
   - onion
   - puff-pastry
   - appetizer
+image: assets/images/upside-down-french-onion-tart.png
+image_alt: Rechteckige Blätterteigtarte mit gebräunten roten Zwiebelscheiben, Thymian und sichtbarem geschmolzenem Käse auf einem dunklen Holzbrett.
 ---
 
 # Gestürzte französische Zwiebeltarte
@@ -44,8 +46,10 @@ tags:
 - Der Short zeigt die Zubereitung der gestürzten Tarte, nennt aber Mengen und Backzeiten nicht im gesprochenen Text. Diese Angaben stammen aus dem verlinkten schriftlichen Rezept und der Videobeschreibung von Erin Clarke.
 - Die Urheberin nennt Honig oder scharfen Honig als Varianten. Im Video ist eine bernsteinfarbene Sauce aus einer Quetschflasche zu sehen; Marke und Schärfegrad lassen sich auf den geprüften Einzelbildern nicht sicher erkennen.
 - Die Tarte schmeckt warm oder bei Raumtemperatur. Laut Urheberin ist sie am Zubereitungstag am besten; Reste über Nacht im Kühlschrank lagern und bei 375 °F (ungefähr 190 °C) wieder erwärmen.
+- **Illustratives KI-generiertes Bild:** Es ist kein Foto der Tarte von Erin Clarke. Die Zwiebelringe und der aufgegangene Teigrand sind stilisiert; der Käse wirkt ausgeprägter als bei der fertigen Tarte der Urheberin. Das Quellvideo zeigt das tatsächliche Aussehen.
 
 ## Sources
 
 - Erin Clarke (Well Plated), «Upside Down French Onion Tart» — [YouTube-Short](https://youtube.com/shorts/mI4jeoRRnx4?is=kqd8RAkVNo2N8_Wn), Video, Transkript und Beschreibung geprüft am 2026-10-29.
 - Erin Clarke, [«Onion Tart» bei Well Plated](https://www.wellplated.com/onion-tart/), schriftliche Zutaten, Zubereitung, Stückzahl und Aufbewahrungshinweise geprüft am 2026-10-29.
+- Illustration: lokal für diese Sammlung KI-generiert und vom Inhaber ausgewählt; kein Originalfoto von Well Plated.

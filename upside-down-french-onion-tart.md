@@ -10,6 +10,8 @@ tags:
   - onion
   - puff-pastry
   - appetizer
+image: assets/images/upside-down-french-onion-tart.png
+image_alt: A rectangular puff-pastry tart with browned red-onion rounds, thyme and visible melted cheese on a dark wooden board.
 ---
 
 # Upside-Down French Onion Tart
@@ -44,8 +46,10 @@ tags:
 - The Short demonstrates the upside-down method but does not state quantities or baking times aloud; these details come from Erin Clarke's linked written recipe and the video's description.
 - Honey or hot honey are both listed. The video visibly uses an amber squeeze-bottle condiment, but its exact brand or heat level cannot be confirmed from the sampled frames.
 - The tart can be served warm or at room temperature. According to the creator, it is best on the day it is made; refrigerate any leftovers overnight and rewarm at 375°F (about 190°C).
+- **Illustrative AI-generated image:** This is not a photograph of Erin Clarke’s tart. The onion rings and puffed pastry edge are stylized, and the cheese looks more prominent than in the creator’s finished batch; consult the source video for the actual appearance.
 
 ## Sources
 
 - Erin Clarke (Well Plated), “Upside Down French Onion Tart” — [YouTube Short](https://youtube.com/shorts/mI4jeoRRnx4?is=kqd8RAkVNo2N8_Wn), video, transcript and description checked 2026-10-29.
 - Erin Clarke, [“Onion Tart” on Well Plated](https://www.wellplated.com/onion-tart/), written ingredients, method, yield and storage notes checked 2026-10-29.
+- Illustration: locally AI-generated for this collection, selected by the collection owner; not an original Well Plated photograph.
