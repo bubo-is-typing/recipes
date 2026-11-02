@@ -9,6 +9,8 @@ tags:
   - rice
   - egg
   - quick
+image: assets/images/phat-kaphrao-thai-basil-mince-v1.png
+image_alt: Heller Keramikteller mit einem Häufchen weissem Reis links, gebräuntem Basilikum-Hackfleisch rechts und einem Spiegelei mit knusprigem Rand und orangefarbenem Eigelb in der Mitte.
 ---
 
 # Phat Kaphrao mit Thai-Basilikum und knusprigem Spiegelei
@@ -59,8 +61,10 @@ tags:
 - Traditionelles Phat Kaphrao wird mit Heiligem Basilikum (Kaphrao) zubereitet. Benne verwendet Thai-Basilikum (Horapha), weil Heiliges Basilikum nicht erhältlich war; es schmeckt anders und stärker nach Anis. Wer Heiliges Basilikum findet, kann es verwenden.
 - Laut Urheber hält sich das gegarte Hackfleisch abgedeckt 1–2 Tage im Kühlschrank. In der Pfanne aufwärmen, frisches Basilikum erst danach unterheben und das Spiegelei frisch braten.
 - Der Urheber nennt weder eine feste Garzeit für den Reis noch eine genaue Ölmenge für die Spiegeleier, abgesehen von etwa 1 cm Füllhöhe.
+- **Illustratives KI-generiertes Bild:** Es ist kein Foto von Benne Benzings Gericht. Das Hackfleisch wirkt gröber und die frischen Basilikumblätter sind auffälliger als auf seinem fertigen Teller; Video und Artikel zeigen das tatsächliche Aussehen.
 
 ## Sources
 
 - Benne Benzing, [«Phat Kaphrao captioned» auf YouTube](https://youtube.com/shorts/ah8UQw_RYk0?is=texWc_HuaxXq7p82) — Video, Urheberbeschreibung und Untertitel geprüft am 2026-11-02.
 - Benne Benzing, [«Phat Kaphrao – Thai-Basilikum-Hack mit Spiegelei»](https://bennebenzing.de/phat-kaphrao/) — Rezeptkarte, Zubereitungshinweise, Basilikumvariante und Aufbewahrung geprüft am 2026-11-02.
+- Illustration: für diese Sammlung eigenständig mit einem lokalen Bildmodell erstellt; das veröffentlichte Bild enthält keine Pixel aus dem Foto des Urhebers.

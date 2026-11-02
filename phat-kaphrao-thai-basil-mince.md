@@ -9,6 +9,8 @@ tags:
   - rice
   - egg
   - quick
+image: assets/images/phat-kaphrao-thai-basil-mince-v1.png
+image_alt: A pale ceramic plate with a mound of white rice on the left, browned basil mince on the right, and one crisp-edged fried egg with an orange yolk across the middle.
 ---
 
 # Phat Kaphrao with Thai Basil Mince and Crispy Fried Eggs
@@ -59,8 +61,10 @@ tags:
 - Traditional phat kaphrao uses holy basil (kaphrao). Benne uses Thai basil (horapha) because holy basil was unavailable; it has a different, more anise-like flavour. Use holy basil if you can find it.
 - The creator says the cooked mince keeps covered in the refrigerator for 1–2 days. Reheat it in a pan, add fresh basil after reheating and fry the eggs fresh.
 - The creator does not specify a fixed rice-cooking time or oil volume for the eggs beyond the approximate 1 cm depth.
+- **Illustrative AI-generated image:** This is not a photograph of Benne Benzing’s dish. The mince appears chunkier and the fresh basil garnish more prominent than in the creator’s finished plate; follow the source video and article for its actual appearance.
 
 ## Sources
 
 - Benne Benzing, [“Phat Kaphrao captioned” on YouTube](https://youtube.com/shorts/ah8UQw_RYk0?is=texWc_HuaxXq7p82) — video, creator description and captions checked 2026-11-02.
 - Benne Benzing, [“Phat Kaphrao – Thai-Basilikum-Hack mit Spiegelei”](https://bennebenzing.de/phat-kaphrao/) — first-party recipe card, technique, basil substitution and storage guidance checked 2026-11-02.
+- Illustration: independently generated for this collection with a local image model; no pixels from the creator’s photograph are used in the published asset.
