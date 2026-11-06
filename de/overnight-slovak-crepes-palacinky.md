@@ -1,6 +1,6 @@
 ---
 title: Slowakische Crêpes (Palacinky) mit Hefeteig über Nacht
-source_creator: Unknown author (user-provided Slovak note)
+source_creator: Zdenka
 source_url: "#sources-heading"
 accessed: 2026-11-06
 tags:
@@ -44,7 +44,7 @@ image_alt: Drei dünne, ungefüllte, goldbraun gefleckte Crêpes auf einem helle
 
 ## Sources
 
-- Von dir übermittelte slowakische Rezeptnotiz, erhalten am 6. November 2026, mit deiner nachträglichen Einordnung als *Palacinky*. Urheberschaft und ursprüngliche Veröffentlichungsadresse wurden nicht angegeben; Mengen und Reihenfolge sind aus der Notiz übertragen und übersetzt.
+- Zdenka, von dir am 6. November 2026 übermittelte slowakische Rezeptnotiz, mit deiner nachträglichen Einordnung als *Palacinky* und der Urheberangabe Zdenka. Eine ursprüngliche Veröffentlichungsadresse wurde nicht angegeben; Mengen und Reihenfolge sind aus der Notiz übertragen und übersetzt.
 - [FoodSafety.gov, «4 Steps to Food Safety»](https://www.foodsafety.gov/keep-food-safe/4-steps-to-food-safety) — redaktioneller Hinweis zur Kühllagerung und zur Zwei-Stunden-Regel für verderbliche Lebensmittel.
 - [FoodSafety.gov, «Salmonella and Eggs»](https://www.foodsafety.gov/blog/salmonella-and-eggs) — Hinweise zum Umgang mit rohen Eiern.
 - Illustration: für die von dir benannten fertigen Crêpes eigenständig mit einem lokalen Bildmodell erzeugt; für das veröffentlichte Bild wurde kein fremdes Foto verwendet.

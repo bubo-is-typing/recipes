@@ -1,6 +1,6 @@
 ---
 title: Overnight Slovak Crêpes (Palacinky)
-source_creator: Unknown author (user-provided Slovak note)
+source_creator: Zdenka
 source_url: "#sources-heading"
 accessed: 2026-11-06
 tags:
@@ -44,7 +44,7 @@ image_alt: Three thin, plain golden crêpes with mottled pan browning on a pale 
 
 ## Sources
 
-- User-provided Slovak recipe note, received 6 November 2026, with a follow-up identifying the dish as *palacinky*. Author and original publication URL were not supplied; ingredient amounts and mixing order are transcribed and translated from the note.
+- Zdenka, Slovak recipe note supplied by the collection owner on 6 November 2026, with a follow-up identifying the dish as *palacinky* and crediting Zdenka. No original publication URL was supplied; ingredient amounts and mixing order are transcribed and translated from the note.
 - [FoodSafety.gov, “4 Steps to Food Safety”](https://www.foodsafety.gov/keep-food-safe/4-steps-to-food-safety) — editorial cold-storage and two-hour guidance for perishable foods.
 - [FoodSafety.gov, “Salmonella and Eggs”](https://www.foodsafety.gov/blog/salmonella-and-eggs) — raw-egg handling guidance.
 - Illustration: independently generated with a local image model from the user-specified finished dish; no third-party photograph was used in the published image.
