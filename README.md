@@ -12,6 +12,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Desserts
 
+- [High-Protein Chocolate Date Chia Mousse](chocolate-date-chia-mousse.md) — Adam Hoad (demonstrated by James White)
 - [Peanut Butter Chickpea Chocolate Chip Cookies](peanut-butter-chickpea-chocolate-chip-cookies.md) — Stefan Bodegrajac
 - [Homemade Oreos](homemade-oreos.md) — KineleVital
 - [Homemade Snickers Bars](homemade-snickers-bars.md) — KineleVital
@@ -32,6 +33,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Savoury
 
+- [Creamy Skyr-Pesto Penne with Chicken](skyr-pesto-chicken-penne.md) — Gabel und Kompass (inspired by Arda Saatçi)
 - [Four-Ingredient Parmesan Cheese Crackers](four-ingredient-parmesan-cheese-crackers.md) — Joey Wellness
 - [Home-Oven Pepperoni Pizza with 3-Day Dough](home-oven-pepperoni-pizza.md) — Dough Guy
 - [High-Protein Rice-Paper Chicken Nuggets](high-protein-rice-paper-chicken-nuggets.md) — MAX (@maxxpane; original video credited to @panaceapalm)
