@@ -4,6 +4,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Breakfast
 
+- [Five-Ingredient Homemade Nutella-Style Spread](homemade-nutella-style-spread.md) — FirstTakeHadrian (inspired by @susan.healthy)
 - [Epicurious Fluffy Pancakes](epicurious-fluffy-pancakes.md) — Frank Proto (Epicurious)
 - [Overnight Slovak Crêpes (Palacinky)](overnight-slovak-crepes-palacinky.md) — Zdenka
 - [Magnum-Style Chocolate Chia Pudding](magnum-style-chocolate-chia-pudding.md) — Juliana Ksander
