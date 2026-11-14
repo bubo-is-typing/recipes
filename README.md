@@ -4,6 +4,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Breakfast
 
+- [Epicurious Fluffy Pancakes](epicurious-fluffy-pancakes.md) — Frank Proto (Epicurious)
 - [Overnight Slovak Crêpes (Palacinky)](overnight-slovak-crepes-palacinky.md) — Zdenka
 - [Magnum-Style Chocolate Chia Pudding](magnum-style-chocolate-chia-pudding.md) — Juliana Ksander
 - [High-Protein Tiramisu Oats](high-protein-tiramisu-oats.md) — Fitness.Compani0n
