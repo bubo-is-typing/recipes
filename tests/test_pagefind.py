@@ -1,6 +1,7 @@
 import json
 import hashlib
 import os
+import re
 import unittest
 from dataclasses import replace
 from pathlib import Path
@@ -28,7 +29,7 @@ class PagefindBuildTests(unittest.TestCase):
         self.assertIn("savoury", recipe.tags)
         page = build.build_recipe(recipe)
         for detail in ("200 g", "1 cup", "4 tbsp", "3 tbsp", "350°F", "12 minutes", "1 hour"):
-            self.assertIn(detail, page)
+            self.assertIn(detail, re.sub(r'<[^>]+>', '', page))
         self.assertIn("Cheese Crackers", page)
         image = "assets/images/four-ingredient-parmesan-cheese-crackers.png"
         self.assertEqual(recipe.image, image)
@@ -47,7 +48,7 @@ class PagefindBuildTests(unittest.TestCase):
         self.assertIn("dessert", recipe.tags)
         page = build.build_recipe(recipe)
         for detail in ("600 g", "40 g", "20 g", "1 tsp", "30 g", "12 cookies", "180°C", "15–20 minutes", "91 calories"):
-            self.assertIn(detail, page)
+            self.assertIn(detail, re.sub(r'<[^>]+>', '', page))
         self.assertIn("peanut-butter-chickpea-chocolate-chip-cookies.md", (Path(__file__).parents[1] / "README.md").read_text())
         image = "assets/images/peanut-butter-chickpea-chocolate-chip-cookies.png"
         self.assertEqual(recipe.image, image)
@@ -66,9 +67,9 @@ class PagefindBuildTests(unittest.TestCase):
         self.assertIsNone(english.image)
         self.assertIn("five-ingredient-apple-oat-muffins.md", (root / "README.md").read_text())
         for detail in ("2 apples", "2 cups", "2 large eggs", "30 g honey", "1 tsp ground cinnamon", "12 muffins", "350°F", "30 minutes", "¼ cup raw honey"):
-            self.assertIn(detail, build.build_recipe(english))
+            self.assertIn(detail, re.sub(r'<[^>]+>', '', build.build_recipe(english)))
         self.assertIn("@homestead.wellness.daily", build.build_recipe(english))
-        self.assertIn("1 TL gemahlener Zimt", build.build_recipe(german, locale=build.DE))
+        self.assertIn("1 TL gemahlener Zimt", re.sub(r'<[^>]+>', '', build.build_recipe(german, locale=build.DE)))
         self.assertIn("inspiriert von", build.build_recipe(german, locale=build.DE))
         self.assertNotIn("ß", (root / "de" / "five-ingredient-apple-oat-muffins.md").read_text())
 
@@ -174,7 +175,7 @@ class PagefindBuildTests(unittest.TestCase):
         package = json.loads(package_path.read_text())
         self.assertEqual(package["devDependencies"]["pagefind"], "1.5.2")
         self.assertEqual(package["scripts"]["build"], "python3 build.py && pagefind --site _site")
-        self.assertEqual(package["scripts"]["test"], "python3 -m unittest discover -s tests -v && node --test tests/test_sort.js")
+        self.assertEqual(package["scripts"]["test"], "python3 -m unittest discover -s tests -v && node --test tests/test_*.js")
         self.assertEqual(package["scripts"]["verify"], "python3 verify_site.py")
 
 

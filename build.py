@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import html
 import hashlib
+import math
 import os
 import re
 import shutil
@@ -12,6 +13,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont, ImageOps
+import recipe_scaling
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "_site"
@@ -144,6 +146,7 @@ class Recipe:
     image: str | None
     image_alt: str | None
     body: str
+    cup_ml: float = 240
 
     @property
     def display_tags(self) -> list[str]:
@@ -189,6 +192,9 @@ def parse_recipe(path: Path) -> Recipe:
         raise ValueError(f"{path.name}: missing frontmatter: {', '.join(missing)}")
     if ("image" in meta) != ("image_alt" in meta):
         raise ValueError(f"{path.name}: image and image_alt must be supplied together")
+    cup_ml = float(str(meta.get("cup_ml", "240")))
+    if not math.isfinite(cup_ml) or cup_ml <= 0:
+        raise ValueError(f"{path.name}: cup_ml must be a positive finite volume")
     return Recipe(
         slug=path.stem,
         title=str(meta["title"]),
@@ -199,6 +205,7 @@ def parse_recipe(path: Path) -> Recipe:
         image=str(meta["image"]) if "image" in meta else None,
         image_alt=str(meta["image_alt"]) if "image_alt" in meta else None,
         body=body.strip(),
+        cup_ml=cup_ml,
     )
 
 
@@ -282,7 +289,8 @@ def markdown_blocks(markdown: str, section_class: str = "") -> str:
             if list_type != desired:
                 close_list(); output.append(f"<{desired}>"); list_type = desired
             content = (bullet or ordered).group(1)
-            output.append(f"<li><span>{inline(content)}</span></li>")
+            rendered = recipe_scaling.ingredient(content, inline) if section_class == "ingredients-list" else inline(content)
+            output.append(f"<li><span>{rendered}</span></li>")
         elif not stripped:
             flush_paragraph(); close_list()
         else:
@@ -411,7 +419,8 @@ def build_index(recipes: list[Recipe], locale: str = "en") -> str:
 
 def build_recipe(recipe: Recipe, locale: str = "en") -> str:
     t = UI[locale]
-    ingredients = markdown_blocks(extract_section(recipe.body, "Ingredients"), "ingredients-list")
+    ingredient_text, provenance = recipe_scaling.prepare(extract_section(recipe.body, "Ingredients"), locale, inline, recipe.cup_ml)
+    ingredients = markdown_blocks(ingredient_text, "ingredients-list") + provenance
     method = markdown_blocks(extract_section(recipe.body, "Method"), "method-list")
     notes = markdown_blocks(extract_section(recipe.body, "Notes"), "notes-list")
     sources = markdown_blocks(extract_section(recipe.body, "Sources"), "sources-list")
@@ -445,8 +454,8 @@ def build_recipe(recipe: Recipe, locale: str = "en") -> str:
           <a class="action-button" href="{html.escape(recipe.source_url, quote=True)}" rel="noopener noreferrer"><span aria-hidden="true">↗</span> {t['source']}</a>
         </div>
         <div class="recipe-layout">
-          <section class="recipe-section ingredients" aria-labelledby="ingredients-heading"><p class="section-number">01</p><h2 id="ingredients-heading">{t['ingredients']}</h2>{ingredients}</section>
-          <section class="recipe-section method" aria-labelledby="method-heading"><p class="section-number">02</p><h2 id="method-heading">{t['method']}</h2>{method}</section>
+          <section class="recipe-section ingredients" aria-labelledby="ingredients-heading"><p class="section-number">01</p><h2 id="ingredients-heading">{t['ingredients']}</h2>{recipe_scaling.controls(recipe.slug, locale)}{ingredients}</section>
+          <section class="recipe-section method" aria-labelledby="method-heading"><p class="section-number">02</p><h2 id="method-heading">{t['method']}</h2>{recipe_scaling.method_notice(locale)}{method}</section>
         </div>
         <aside class="notes" aria-labelledby="notes-heading"><div><p class="eyebrow">{t['before']}</p><h2 id="notes-heading">{t['notes']}</h2></div>{notes}</aside>
         <section class="sources" aria-labelledby="sources-heading"><p class="section-number">03</p><h2 id="sources-heading">{t['sources']}</h2>{sources}</section>

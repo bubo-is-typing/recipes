@@ -124,6 +124,20 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .ingredients-list ul, .method-list ol, .notes-list ul, .sources-list ul { margin: 0; padding: 0; list-style: none; }
 .ingredients-list li { padding: 11px 0; display: flex; gap: 12px; border-bottom: 1px solid var(--line); }
 .ingredients-list li::before { content: '○'; color: var(--terracotta); font-size: .72rem; padding-top: 3px; }
+#recipe-scale { margin: -12px 0 25px; }
+#scale-controls { padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-deep); }
+#scale-controls > label:not(.sr-only) { display: block; font-size: .78rem; color: var(--muted); margin-bottom: 8px; }
+.scale-inputs { display: flex; align-items: center; gap: 8px; }
+#scale-factor { width: 6rem; min-height: 44px; padding: 6px 8px; border: 1px solid var(--muted); border-radius: 6px; background: var(--paper); color: var(--ink); }
+#scale-factor[aria-invalid="true"] { border: 2px solid var(--terracotta-dark); }
+#scale-reset { margin-left: auto; min-height: 44px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--ink); cursor: pointer; }
+#scale-slider { display: block; width: 100%; min-height: 44px; accent-color: var(--terracotta-dark); margin: 6px 0 0; }
+#scale-status { font-weight: 600; font-size: .84rem; margin: 10px 0; }
+.scale-note, .source-measurements { color: var(--muted); font-size: .8rem; line-height: 1.6; }
+.scale-note { border-left: 2px solid var(--terracotta); padding-left: 12px; margin: 14px 0 24px; }
+.source-measurements { margin-top: 22px; overflow-wrap: anywhere; }
+.source-measurements summary { cursor: pointer; color: var(--terracotta-dark); }
+.source-measurements ul { padding-left: 20px; }
 .method-list ol { counter-reset: steps; }
 .method-list li { counter-increment: steps; display: grid; grid-template-columns: 46px 1fr; gap: 12px; padding: 0 0 30px; }
 .method-list li::before { content: counter(steps, decimal-leading-zero); width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--terracotta); border-radius: 50%; color: var(--terracotta-dark); font: 500 .72rem var(--sans); }
@@ -152,6 +166,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
 @media print {
+  #scale-controls { display: none !important; }
   @page { margin: 1.4cm; }
   body { background: white; color: black; font-size: 10.5pt; }
   .site-header, .site-footer, .breadcrumb, .recipe-actions, .cook-bar, .recipe-hero-image { display: none !important; }

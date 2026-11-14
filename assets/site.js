@@ -63,6 +63,43 @@
     applyFilters();
   }));
 
+  const scale = document.querySelector('#recipe-scale');
+  if (scale) {
+    const factorInput = document.querySelector('#scale-factor');
+    const slider = document.querySelector('#scale-slider');
+    const status = document.querySelector('#scale-status');
+    const storageKey = `recipe-scale:${scale.dataset.recipeSlug}`;
+    const quantities = [...document.querySelectorAll('.ingredients-list [data-quantity]')]
+      .map(node => ({ node, value: Number(node.dataset.quantity), original: node.textContent }));
+    // German recipe prose uses decimal commas (including our de-CH edition).
+    const numberLocale = document.documentElement.lang === 'de-CH' ? 'de-DE' : 'en';
+    const format = value => new Intl.NumberFormat(numberLocale, { maximumSignificantDigits: 6, useGrouping: false }).format(value);
+    const applyScale = (value, editing = false) => {
+      const factor = Number(value);
+      const valid = Number.isFinite(factor) && factor >= 0.1 && factor <= 20;
+      factorInput.setAttribute('aria-invalid', String(!valid));
+      if (!valid) return;
+      quantities.forEach(({ node, value: baseline, original }) => {
+        node.textContent = factor === 1 ? original : format(baseline * factor);
+      });
+      // Do not erase a trailing decimal point or move the caret while typing.
+      if (!editing) factorInput.value = String(factor);
+      slider.value = String(Math.max(0.25, Math.min(4, factor)));
+      status.textContent = `${format(factor)}× · ${status.dataset.original}`;
+      try { window.sessionStorage.setItem(storageKey, String(factor)); } catch { /* Private/blocked storage: scaling still works. */ }
+    };
+    slider.addEventListener('input', () => applyScale(slider.value));
+    factorInput.addEventListener('input', () => applyScale(factorInput.value, true));
+    document.querySelector('#scale-reset').addEventListener('click', () => applyScale(1));
+    let initial = 1;
+    try {
+      const stored = Number(window.sessionStorage.getItem(storageKey));
+      if (Number.isFinite(stored) && stored >= 0.1 && stored <= 20) initial = stored;
+    } catch { /* Storage is optional. */ }
+    applyScale(initial);
+    document.querySelector('#scale-controls').hidden = false;
+  }
+
   document.querySelector('#print-recipe')?.addEventListener('click', () => window.print());
 
   const setCookMode = (enabled) => {

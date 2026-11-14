@@ -58,6 +58,12 @@ The English recipe Markdown at the repository root is the source-faithful origin
 
 When adding a recipe, add its English Markdown, its `de/` translation and a link here before publishing. Review both languages, run `npm test`, `npm run build` and `npm run verify`, then check the English and German pages, catalogue, search, and language switch after deployment. An explicit language choice is remembered in a cookie; otherwise the site uses the browser’s preferred language.
 
+## Recipe scaling
+
+Every recipe page offers a client-side ingredient multiplier in both languages: a 0.25–4× slider, a custom 0.1–20× input, and reset to the original quantities. The multiplier is remembered per recipe for the browser session and survives language switching. Printed ingredient quantities reflect the selected scale; method quantities, temperatures, times, equipment and nutrition remain at the original scale, with an explicit notice.
+
+Ingredient lists display metric quantities, preferring equivalents already supplied by the source. Cup-only measures use an explicitly approximate volume conversion (default `1 cup ≈ 240 ml`, overridable with matching `cup_ml` frontmatter in both languages); dry ingredients are never assigned invented gram weights. Normalized source measurements remain available in a collapsed provenance note. Spoon measures and counts remain usable as given. Explicitly unspecified units and qualitative amounts are not scaled. Source Markdown remains unchanged.
+
 ## Local development
 
 ```bash
