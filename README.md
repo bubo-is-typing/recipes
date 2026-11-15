@@ -14,6 +14,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Desserts
 
+- [Snickers-Style Date and Peanut Butter Chia Bowl](snickers-style-date-peanut-butter-chia-bowl.md) — Stefan Bodegrajac (inspired by @Jessespt)
 - [High-Protein Chocolate Date Chia Mousse](chocolate-date-chia-mousse.md) — Adam Hoad (demonstrated by James White)
 - [Peanut Butter Chickpea Chocolate Chip Cookies](peanut-butter-chickpea-chocolate-chip-cookies.md) — Stefan Bodegrajac
 - [Homemade Oreos](homemade-oreos.md) — KineleVital
