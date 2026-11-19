@@ -37,6 +37,7 @@ Markdown recipes collected from videos and other sources.
 
 ## Savoury
 
+- [Homemade Chicken Sausage](homemade-chicken-sausage.md) — Karina Rooxx
 - [Lebanese-Style Baba Ghanoush](lebanese-style-baba-ghanoush.md) — Chef Mike (Detroit 75 Kitchen)
 - [Creamy Skyr-Pesto Penne with Chicken](skyr-pesto-chicken-penne.md) — Gabel und Kompass (inspired by Arda Saatçi)
 - [Four-Ingredient Parmesan Cheese Crackers](four-ingredient-parmesan-cheese-crackers.md) — Joey Wellness
